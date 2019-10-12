@@ -1,4 +1,4 @@
-![嗯嗯](images\2019-10-12_170026.jpg)
+![tupian](images/2019-10-12_170026.jpg)
 
 
 git rm --cached   ：移除暂存处内容
