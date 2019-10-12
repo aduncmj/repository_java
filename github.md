@@ -1,5 +1,4 @@
-![](C:\$repository\repository_java\images\2019-10-12_163540.bmp)
-
+![嗯嗯](images/2019-10-12_170026.jpg)
 
 
 git rm --cached   ：移除暂存处内容
