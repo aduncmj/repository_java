@@ -1,4 +1,38 @@
-[TOC]
+- [java基本概念](#java----)
+  * [1.什么是环境变量？path、classPath](#1--------path-classpath)
+  * [2.JDK（Java Development Kit)里面有什么？](#2jdk-java-development-kit-------)
+  * [3.什么是JRE（Java Runtime Environment : java运行环境）?](#3---jre-java-runtime-environment---java------)
+  * [4.什么是JVM（Java Virtual Machine:java虚拟机）？](#4---jvm-java-virtual-machine-java-----)
+- [java变量](#java--)
+  * [变量](#--)
+  * [布尔类型](#----)
+  * [字符类型](#----)
+  * [数值类型](#----)
+- [类和对象](#----)
+  * [构造函数（构建器）](#---------)
+  * [this关键字](#this---)
+  * [super关键字](#super---)
+  * [static关键字](#static---)
+  * [访问权限（default、public、private、protected）](#-----default-public-private-protected-)
+  * [面向对象基础](#------)
+  * [main函数](#main--)
+  * [包](#-)
+  * [单例设计模式](#------)
+  * [继承](#--)
+  * [final](#final)
+  * [抽象类](#---)
+  * [模板方法设计模式](#--------)
+  * [接口](#--)
+  * [多态](#--)
+  * [内部类](#---)
+    + [匿名内部类](#-----)
+  * [异常](#--)
+  * [多进程](#---)
+  * [String](#string)
+  * [集合](#--)
+
+<small><i><a href='http://ecotrust-canada.github.io/markdown-toc/'>Table of contents generated with markdown-toc</a></i></small>
+
 
 # java基本概念
 ---
