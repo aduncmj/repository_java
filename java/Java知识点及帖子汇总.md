@@ -1,3 +1,38 @@
+<!-- TOC -->
+
+- [帖子](#帖子)
+- [检查对象是否相等](#检查对象是否相等)
+- [初始化和类装载](#初始化和类装载)
+- [从控制台读取数据：](#从控制台读取数据)
+- [文件的输入和输出：](#文件的输入和输出)
+- [随机数的产生](#随机数的产生)
+    - [System.currentTimeMilli()](#systemcurrenttimemilli)
+    - [random方法](#random方法)
+    - [java.util.Random类](#javautilrandom类)
+- [Object类](#object类)
+    - [toString()方法](#tostring方法)
+    - [hashCode()方法](#hashcode方法)
+    - [equals()方法](#equals方法)
+    - [equals方法与hashCode方法比较](#equals方法与hashcode方法比较)
+    - [Equals和“==”的比较](#equals和的比较)
+- [Arrays类](#arrays类)
+    - [binarySearch方法](#binarysearch方法)
+    - [copyOf方法](#copyof方法)
+    - [fill方法](#fill方法)
+    - [hashCode方法](#hashcode方法)
+    - [sort方法](#sort方法)
+    - [toString 方法](#tostring-方法)
+- [其他](#其他)
+    - [运算符和表达式](#运算符和表达式)
+    - [命令和参数](#命令和参数)
+    - [数据存储位置](#数据存储位置)
+    - [基本数据类型和引用数据类型的存储位置](#基本数据类型和引用数据类型的存储位置)
+    - [作用域](#作用域)
+    - [代码重构](#代码重构)
+    - [重定向和管道](#重定向和管道)
+
+<!-- /TOC -->
+
 # 帖子
 
 - **Java4android**
