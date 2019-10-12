@@ -1,19 +1,25 @@
 # 帖子
 
 - **Java4android**
-  [https://study.163.com/course/courseMain.htm?courseId=201001&_trace_c_p_k2_=068513fdaaf74a11af8d33da5cca277f](https://study.163.com/course/courseMain.htm?courseId=201001&_trace_c_p_k2_=068513fdaaf74a11af8d33da5cca277f)
+
+[https://study.163.com/course/courseMain.htm?courseId=201001&_trace_c_p_k2_=068513fdaaf74a11af8d33da5cca277f](https://study.163.com/course/courseMain.htm?courseId=201001&_trace_c_p_k2_=068513fdaaf74a11af8d33da5cca277f)
 
 - **hashcode（）和equals（）的作用、区别、联系**
-  [https://www.cnblogs.com/keyi/p/7119825.html](https://www.cnblogs.com/keyi/p/7119825.html)
+  
+
+[https://www.cnblogs.com/keyi/p/7119825.html](https://www.cnblogs.com/keyi/p/7119825.html)
 
 - **java中equals和“==”的区别**
-  [https://www.cnblogs.com/smyhvae/p/3929585.html](https://www.cnblogs.com/smyhvae/p/3929585.html)
+
+[https://www.cnblogs.com/smyhvae/p/3929585.html](https://www.cnblogs.com/smyhvae/p/3929585.html)
 
 - **java中基本数据类型和引用数据类型的存储位置**
-  [https://blog.csdn.net/qq_36596145/article/details/76300922](https://blog.csdn.net/qq_36596145/article/details/76300922)
+
+[https://blog.csdn.net/qq_36596145/article/details/76300922](https://blog.csdn.net/qq_36596145/article/details/76300922)
 
 - **java中system.out.printf()所支持的格式化字符串汇总**
-  [(https://blog.csdn.net/xhw035/article/details/52433903)](https://blog.csdn.net/xhw035/article/details/52433903)
+
+[(https://blog.csdn.net/xhw035/article/details/52433903)](https://blog.csdn.net/xhw035/article/details/52433903)
 
 
 
