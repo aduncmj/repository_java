@@ -1,6 +1,4 @@
-[TOC]
-
-
+AtxMarkdownToc.newInstance().genTocFile(repository_java);
 
 
 # java基本概念
