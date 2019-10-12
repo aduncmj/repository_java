@@ -90,13 +90,18 @@
 ---
 ## 变量
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-2e45441e4b5a3ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-3ff4b7738e0132e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-1de60e111307f034.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ## 布尔类型
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-d2585576fcda7b8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ## 字符类型
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-cf887c1121ad3ab9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-adcd2e43269f67f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-d08697d7a2e8b786.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-5d5e6f9246848d8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 ## 数值类型
@@ -1148,12 +1153,12 @@ String类适用于描述字符串事物。
 ​			String(byte[])
 ​			String(byte[],offset,count):将字节数组中的一部分转成字符串。
 ​	
-	3.4 将字符串转成字节数组。
-			byte[]  getBytes():
-	3.5 将基本数据类型转成字符串。
-		static String valueOf(int)
-		static String valueOf(double)
-	
+​	3.4 将字符串转成字节数组。
+​			byte[]  getBytes():
+​	3.5 将基本数据类型转成字符串。
+​		static String valueOf(int)
+​		static String valueOf(double)
+​	
 		//3+"";//String.valueOf(3);
 	
 		特殊：字符串和字节数组在转换过程中，是可以指定编码表的。
