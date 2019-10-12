@@ -1,4 +1,4 @@
-AtxMarkdownToc.newInstance().genTocFile(repository_java);
+AtxMarkdownToc.newInstance().genTocFile(repository_java/java基础.md);
 
 
 # java基本概念
