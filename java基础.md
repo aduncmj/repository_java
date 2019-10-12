@@ -1,6 +1,6 @@
-**目录**
-![目录](https://upload-images.jianshu.io/upload_images/1732196-bbf62eab7cef1c4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+[TOC]
 
+<!-- TOC -->
 
 # java基本概念
 ---
