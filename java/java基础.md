@@ -88,7 +88,9 @@
 
 # java变量
 ---
+
 ## 变量
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-2e45441e4b5a3ed9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-3ff4b7738e0132e8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -96,40 +98,56 @@
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-1de60e111307f034.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 布尔类型
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-d2585576fcda7b8e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ## 字符类型
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-cf887c1121ad3ab9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-adcd2e43269f67f6.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-d08697d7a2e8b786.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-5d5e6f9246848d8a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ## 数值类型
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-e9e09567b8a70912.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-138592984283f3ae.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-18d3e7c85ff9367a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-3d34f076e975e9ab.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-87546bc41b926114.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-754f237f499296fa.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 > j=i++; 等价于 j=i; i=i+1;
 > j=++i; 等价于 j=i+1; i=i+1;
 
 
 # 类和对象
 ---
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-4258340f23afedf0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-d55c8167a9ed1968.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ## 构造函数（构建器）
 
 ![](https://upload-images.jianshu.io/upload_images/1732196-bae0cc89884233f7.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-4006962405e653af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 编译器不让我们从除了一个构建器之外的其他任何方法内部调用一个构建器。
 
 ## this关键字
 
 ![](https://upload-images.jianshu.io/upload_images/1732196-ae511ec29f8e9be4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 this 关键字用于那些特殊的类——需明确使用当前对象的句柄。例如，假若您希望将句柄返回给当前对象，那么它经常在return 语句中使用。通过 this 关键字返回当前对象的句柄，所以可以方便地对同一个对象执行多项操作。
 
 若为一个类写了多个构建器，那么经常都需要在一个构建器里调用另一个构建器，**以避免写重复的代码**。可用this 关键字做到这一点。
@@ -137,25 +155,35 @@ this 关键字用于那些特殊的类——需明确使用当前对象的句柄
 除此以外，构建器调用必须是我们做的第一件事情，否则会收到编译程序的报错信息。
 
 由于自变量s 的名字以及成员数据s 的名字是相同的，所以会出现混淆。为解决这个问题，可用 this.s来引用成员数据。
+
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-03766003412fc5f0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
+
 ## super关键字
+
 我们通常想要在新类中调用基础类的成分，但又不想只是简单地调用，那样会造成递归调用。为解决这个问题，java提供了一个super关键字，通过它可直接调用基础类的成分。
 
 对于衍生类，其构造函数里做的第一件事必须是给基础类进行初始化（用super关键字），但当基础类的构造函数没有参数时，可省略此步，当然系统亦会自动对其初始化。
+
 > ![](https://upload-images.jianshu.io/upload_images/1732196-cce5e074e5f08241.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 使用super 调用构造器的语句必须是子类构造器的第一条语句 。
 
 
 ## static关键字
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-89a78acbeac86963.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-7a6cb8d1f82b24de.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-0332ca3157de7157.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-b7d105eb88879042.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![](https://upload-images.jianshu.io/upload_images/1732196-56919111b1739e3f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ## 访问权限（default、public、private、protected）
+
 **default：“友好的”**
 当前包内的其他所有类都能访问“友好的”成员，但对包外来说，这些成员是“私有的”，外界无法访问。
 **public**
@@ -166,6 +194,7 @@ this 关键字用于那些特殊的类——需明确使用当前对象的句柄
 protected的意思是“它本身是私有的，但可由从这个类继承的任何东西或者同一个包内的其他任何东西访问”。也就是说，Java 中的protected 会成为进入“友好”状态。
 
 ## 面向对象基础
+
 所有东西都是对象。可将对象想象成一种新型变量；它保存着数据，但可要求它对自身进行操作。理论上讲，可从要解决的问题身上提出所有概念性的组件，然后在程序中将其表达为一个对象。
 
 每个对象都有自己的存储空间，可容纳其他对象。或者说，通过封装现有对象，可制作出新型对象。所以，尽管对象的概念非常简单，但在程序中却可达到任意高的复杂程度。
@@ -342,6 +371,7 @@ java支持多层继承。也就是一个继承体系
 super的使用和this的使用几乎一致。
 this代表的是本类对象的引用。
 super代表的是父类对象的引用。
+
 ![super和this](https://upload-images.jianshu.io/upload_images/1732196-dd44b8b21dabd7cb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
@@ -405,6 +435,7 @@ final : 最终。作为一个修饰符，
 将一个子类的引用赋给一个超类变量 ， 编译器是允许的。 但将一个超类的引用赋给一个子类变量 ，必须进行类型转换 ， 这样才能够通过运行时的检査。
 
 在将超类转换成子类之前 ， 应该使用instanceof 进行检查。
+
 > ![示例](https://upload-images.jianshu.io/upload_images/1732196-2b4a881d3eb6bf26.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 在一般情况下 ， 应该尽量少用类型转换和 instanceof 运算符。
@@ -418,6 +449,7 @@ final : 最终。作为一个修饰符，
 - 抽象方法一定在抽象类中，即包含抽象方法的类必须被声明为抽象类。
 - 抽象方法和抽象类都必须被**abstract**关键字修饰。
 - 抽象类不可以用new创建对象。因为调用抽象方法没意义。
+- 
   ![抽象.png](https://upload-images.jianshu.io/upload_images/1732196-962b2b49633bcfeb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 - 抽象类中的抽象方法要被使用，必须由子类**复写其所有的抽象方法**后，建立子类对象调用。
@@ -1159,8 +1191,8 @@ String类适用于描述字符串事物。
 ​		static String valueOf(int)
 ​		static String valueOf(double)
 ​	
-		//3+"";//String.valueOf(3);
-	
+​		//3+"";//String.valueOf(3);
+​	
 		特殊：字符串和字节数组在转换过程中，是可以指定编码表的。
 
 4，替换
