@@ -83,7 +83,9 @@ Java 则没有这样的问题，因为它采用了不同的装载方法。由于
 对Beetle 运行Java 时，发生的第一件事情是装载程序到外面找到那个类。在装载过程中，装载程序注意它有一个基础类（即extends 关键字要表达的意思），所以随之将其载入。无论是否准备生成那个基础类的一个对象，这个过程都会发生（请试着将对象的创建代码当作注释标注出来，自己去证实）。
 若基础类含有另一个基础类，则另一个基础类随即也会载入，以此类推。接下来，会在根基础类（此时是Insect）执行 static 初始化，再在下一个衍生类执行，以此类推。保证这个顺序是非常关键的，因为衍生类的初始化可能要依赖于对基础类成员的正确初始化。此时，必要的类已全部装载完毕，所以能够创建对象。首先，这个对象中的所有基本数据类型都会设成它们的默认值，而将对象句柄设为null。随后会调用基础类构建器。在这种情况下，调用是自动进行的。但也完全可以用super 来自行指定构建器调用（就象在Beetle()构建器中的第一个操作一样）。基础类的构建采用与衍生类构建器完全相同的处理过程。基础顺构建器完成以后，实例变量会按本来的顺序得以初始化。最后，执行构建器剩余的主体部分。
 
-# 从控制台读取数据：
+常用API
+
+# 从控制台读取数据
 
 ---
 ![](https://upload-images.jianshu.io/upload_images/1732196-91e080f89ca3d871.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
@@ -102,7 +104,7 @@ Java 则没有这样的问题，因为它采用了不同的装载方法。由于
 
 ![](https://upload-images.jianshu.io/upload_images/1732196-ad64256bf5e722eb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-# 文件的输入和输出：
+# 文件的输入和输出
 ---
 ![](https://upload-images.jianshu.io/upload_images/1732196-b6ec7ade6683b17d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -146,11 +148,19 @@ random方法是Math类里的一个方法，通过Math.random()可以获得0.0到
 
 利用这种方法其比较方便。如可以利用提供的关键字，让程序返回一个随机的整数(采用int nextInt(10))等等。不过其返回控制要比Random方法困难一点。如现在需要系统提供一个10到50之间的随机奇数， 利用这个Random类就无法完成。也就是说，利用这个Random类来生成随机数，其只能够控制上限，而不能够控制下限。换一句话说，其可以指定最大的随机数范围，而不能够指定最小的随机数范围。所以，在灵活性上，其比Random方法要稍微差一点。
 
-# Object类
+
+
+# 常用API
+
+
+
+## Object类
+
 ---
 > Java.lang.Object类为类层次结构的根，是所有类的父类。所有对象，包括数组，都实现这个类的方法。
 
-## toString()方法
+### toString()方法
+
     public String toString()
 
  Object 类的 toString（） 方法返回一个字符串，该字符串由类名（对象是该类的一个实例）、at 标记符“@”和此对象哈希码（对象在JVM虚拟出来的内存地址，为整数。不是实际物理内存地址。）的无符号十六进制表示组成。如：[aduncmj.java.practice.toString@60f82f98](mailto:aduncmj.java.practice.toString@60f82f98)。
@@ -169,7 +179,7 @@ toString 方法是一种非常有用的调试工具 。 在标准类库中 ， �
 
 
 
-## hashCode()方法
+### hashCode()方法
     public native int hashCode()
 
 散列码 （ hash code ) 是由对象导出的一个整型值。 散列码是没有规律的 。
@@ -178,12 +188,12 @@ toString 方法是一种非常有用的调试工具 。 在标准类库中 ， �
 
 每个对象都有一个默认的散列码 ， 其值为对象的存储地址。
 
-## equals()方法
+### equals()方法
     public boolean equals(Object obj)
 
   默认情况下，该方法比较当前对象是否和目标对象拥有相同的内存地址，返回值为布尔类型。但这方法使用的时候通常也需要重写。
 
-## equals方法与hashCode方法比较
+### equals方法与hashCode方法比较
 
   如果两个对象使用equals比较返回true,那么它们的hashCode值一定要相同，所以，重写了equals方法一般都要重写hashCode方法。
 
@@ -194,7 +204,7 @@ toString 方法是一种非常有用的调试工具 。 在标准类库中 ， �
 
   因为重写的equal（）里一般比较的比较全面比较复杂，这样效率就比较低，而利用hashCode()进行对比，则只要生成一个hash值进行比较就可以了，效率很高，那么hashCode()既然效率这么高为什么还要equal()呢？因为hashCode()并不是完全可靠，有时候不同的对象他们生成的hashcode也会一样（生成hash值得公式可能存在的问题），所以hashCode()只能说是大部分时候可靠，并不是绝对可靠。
 
-## Equals和“==”的比较
+### Equals和“==”的比较
 
 **== 的作用：**
 
@@ -209,36 +219,36 @@ toString 方法是一种非常有用的调试工具 。 在标准类库中 ， �
 > 注：不过，我们可以根据情况自己重写该方法。一般重写都是自动生成，比较对象的成员变量值是否相同。对于复合数据类型之间进行equals比较，在没有覆写equals方法的情况下，他们之间的比较还是内存中的存放位置的地址值，跟双等号（==）的结果相同。
 
 
-# Arrays类
+## Arrays类
 ---
 > java.util.Arrays类包含了许多用于操作数组（比如排序和搜索）的静态方法，是JDK提供的专门用于操作数组的工具类，位于java.util包中，它继承于Object类。
 
-## binarySearch方法
+### binarySearch方法
     public static int binarySearch(type[] array ,type key)
 
 通过binarySearch方法能对排序好的各种类型的数组进行二分查找法操作。注意必须事先对数组array进行排序，否则结果不确定。该方法返回待搜索值的索引。
 
-## copyOf方法
+### copyOf方法
     public static type[] copyOf(type[] original,type newLength)
 
   该方法可复制指定的数组，截取或填充用零(如有必要)，以使副本具有指定的长度。
 
-## fill方法
+### fill方法
     public static void fill(type[] a, type val)
 
   指定的type类型值给指定的数组的每个元素。
 
-## hashCode方法
+### hashCode方法
     public static int hashCode(type[] a)
 
   返回基于指定数组的内容的哈希码。
 
-## sort方法
+### sort方法
     public static void sort(type[] a)
 
   指定的int型数组排序按数字升序顺序。
 
-## toString 方法
+### toString 方法
     public static String toString(type[] a)
 
   返回指定的type数组内容的字符串表示形式。该字符串表示形式由数组的元素，括在方括号(“[]”)的列表。相邻元素由字符分隔“，”(逗号后面有一个空格)。
