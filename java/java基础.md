@@ -984,7 +984,7 @@ JAVASE提供了满足各种需求的API，在使用这些API前，先了解其�
 
 集合本身是一个工具，它存放在java.util包中。在`Collection`接口定义着单列集合框架中最最共性的内容。
 
-### 1.3 Collection 常用功能
+### 1.3 Collection 接口常用方法
 
 Collection是所有单列集合的父接口，因此在Collection中定义了单列集合(List和Set)通用的一些方法，这些方法可用于操作所有的单列集合。方法如下：
 
@@ -1352,185 +1352,446 @@ public static void getElement2(Collection<? super Number> coll){}
 
 
 
-### set
+### List集合（接口）
 
-|--Set：元素是无序(存入和取出的顺序不一定一致)，元素不可以重复。、
-	|--HashSet:底层数据结构是哈希表。是线程不安全的。不同步。
-			HashSet是如何保证元素唯一性的呢？
-			是通过元素的两个方法，hashCode和equals来完成。
-			如果元素的HashCode值相同，才会判断equals是否为true。
-			如果元素的hashcode值不同，不会调用equals。
+我们掌握了Collection接口的使用后，再来看看Collection接口中的子类，他们都具备那些特性呢？
 
-```
-		注意,对于判断元素是否存在，以及删除等操作，依赖的方法是元素的hashcode和equals方法。
-```
+接下来，我们一起学习Collection中的常用几个子类（`java.util.List`集合、`java.util.Set`集合）。
 
-```
-	|--TreeSet：
-```
+#### List接口介绍
 
-Set集合的功能和Collection是一致的。
+`java.util.List`接口继承自`Collection`接口，是单列集合的一个重要分支，习惯性地会将实现了`List`接口的对象称为List集合。在List集合中允许出现重复的元素，所有的元素是以一种线性方式进行存储的，在程序中可以通过索引来访问集合中的指定元素。另外，List集合还有一个特点就是元素有序，即元素的存入顺序和取出顺序一致。
 
-LinkedList:特有方法：
-addFirst();
-addLast();
+#### List接口中常用方法
 
-getFirst();
-getLast();
-获取元素，但不删除元素。如果集合中没有元素，会出现NoSuchElementException
+List作为Collection集合的**子接口**，不但继承了Collection接口中的全部方法，而且还增加了一些根据元素索引来操作集合的特有方法，如下：
 
-removeFirst();
-removeLast();
-获取元素，但是元素被删除。如果集合中没有元素，会出现NoSuchElementException
+- `public void add(int index, E element)`: 将指定的元素，添加到该集合中的指定位置上。
+- `public E get(int index)`:返回集合中指定位置的元素。
+- `public E remove(int index)`: 移除列表中指定位置的元素, 返回的是被移除的元素。
+- `public E set(int index, E element)`:用指定元素替换集合中指定位置的元素,返回值的更新前的元素。
 
-在JDK1.6出现了替代方法。
+#### List的子类
 
-offerFirst();
-offerLast();
+##### ArrayList集合
 
-peekFirst();
-peekLast();
-获取元素，但不删除元素。如果集合中没有元素，会返回null。
+`java.util.ArrayList`集合数据存储的结构是**数组结构**。元素增删慢，查找快，由于日常开发中使用最多的功能为查询数据、遍历数据，所以`ArrayList`是最常用的集合。
 
-pollFirst();
-pollLast();
-获取元素，但是元素被删除。如果集合中没有元素，会返回null。
+许多程序员开发时非常随意地使用ArrayList完成任何需求，并不严谨，这种用法是不提倡的。
 
-Collection
-	|--List:元素是有序的，元素可以重复。因为该集合体系有索引。
-		|--ArrayList:底层的数据结构使用的是数组结构。特点：查询速度很快。但是增删稍慢。线程不同步。
-		|--LinkedList:底层使用的链表数据结构。特点：增删速度很快，查询稍慢。线程不同步。
-		|--Vector:底层是数组数据结构。线程同步。被ArrayList替代了。因为效率低。
+##### LinkedList集合
 
-```
-|--Set：元素是无序，元素不可以重复。、
-```
+`java.util.LinkedList`集合数据存储的结构是**链表结构**。方便元素添加、删除的集合。
 
-List：
-	特有方法。凡是可以操作角标的方法都是该体系特有的方法。
+> LinkedList是一个双向链表，那么双向链表是什么样子的呢，我们用个图了解下
 
-增
-	add(index,element);
-	addAll(index,Collection);
+![](C:/%23/temp/14.%E3%80%90List%E3%80%81Set%E3%80%91/14.%E3%80%90List%E3%80%81Set%E3%80%91-%E7%AC%94%E8%AE%B0/%E5%B0%B1%E4%B8%9A%E7%8F%AD-day03-List%E3%80%81Set%E3%80%81%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E3%80%81Collections/img/%E5%8F%8C%E5%90%91%E9%93%BE%E8%A1%A8.png)
 
-删
-	remove(index);
+实际开发中对一个集合元素的添加与删除经常涉及到首尾操作，而LinkedList提供了大量首尾操作的方法。这些方法我们作为了解即可：
 
-改
-	set(index,element);
-查
-	get(index):
-	subList(from,to);
-	listIterator();
-	int indexOf(obj):获取指定元素的位置。
-	ListIterator listIterator();
+- `public void addFirst(E e)`:将指定元素插入此列表的开头。
+- `public void addLast(E e)`:将指定元素添加到此列表的结尾。
+- `public E getFirst()`:返回此列表的第一个元素。
+- `public E getLast()`:返回此列表的最后一个元素。
+- `public E removeFirst()`:移除并返回此列表的第一个元素。
+- `public E removeLast()`:移除并返回此列表的最后一个元素。
+- `public E pop()`:从此列表所表示的堆栈处弹出一个元素。
+- `public void push(E e)`:将元素推入此列表所表示的堆栈。
+- `public boolean isEmpty()`：如果列表不包含元素，则返回true。
 
+LinkedList是List的子类，List中的方法LinkedList都是可以使用，这里就不做详细介绍，我们只需要了解LinkedList的特有方法即可。**在开发时，LinkedList集合也可以作为堆栈，队列的结构使用**。（了解即可）
 
+### Set集合（接口）
 
+`java.util.Set`接口和`java.util.List`接口一样，同样继承自`Collection`接口，它与`Collection`接口中的方法基本一致，并没有对`Collection`接口进行功能上的扩充，只是比`Collection`接口更加严格了。与`List`接口不同的是，`Set`接口中元素无序，并且都会**以某种规则保证存入的元素不出现重复**。
 
+`Set`集合有多个子类，这里我们介绍其中的`java.util.HashSet`、`java.util.LinkedHashSet`这两个集合。
 
-List集合特有的迭代器。ListIterator是Iterator的子接口。
+> tips:Set集合取出元素的方式可以采用：迭代器、增强for。
 
-在迭代时，不可以通过集合对象的方法操作集合中的元素。
-因为会发生ConcurrentModificationException异常。
+#### HashSet集合
 
-所以，在迭代器时，只能用迭代器的放过操作元素，可是Iterator方法是有限的，
-只能对元素进行判断，取出，删除的操作，
-如果想要其他的操作如添加，修改等，就需要使用其子接口，ListIterator。
+`java.util.HashSet`是`Set`接口的一个实现类，它所存储的元素是不可重复的，并且元素都是无序的(即存取顺序不一致)。`java.util.HashSet`**底层的实现其实是一个`java.util.HashMap`支持**，由于我们暂时还未学习，先做了解。
 
-该接口只能通过List集合的listIterator方法获取。
+`HashSet`**是根据对象的哈希值来确定元素在集合中的存储位置，因此具有良好的存取和查找性能**。保证元素唯一性的方式**依赖于：`hashCode`与`equals`方法**。
 
-Set:无序，不可以重复元素。
-	|--HashSet：数据结构是哈希表。线程是非同步的。
-				保证元素唯一性的原理：判断元素的hashCode值是否相同。
-				如果相同，还会继续判断元素的equals方法，是否为true。
+##### ??HashSet集合存储数据的结构（哈希表）
 
-```
-|--TreeSet：可以对Set集合中的元素进行排序。
+什么是哈希表呢？
+
+在**JDK1.8**之前，哈希表底层采用数组+链表实现，即使用链表处理冲突，同一hash值的链表都存储在一个链表里。但是当位于一个桶中的元素较多，即hash值相等的元素较多时，通过key值依次查找的效率较低。而JDK1.8中，哈希表存储采用数组+链表+红黑树实现，当链表长度超过阈值（8）时，将链表转换为红黑树，这样大大减少了查找时间。
+
+简单的来说，哈希表是由数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下图所示。![](images/哈希表.png)
+
+看到这张图就有人要问了，这个是怎么存储的呢？
+
+为了方便大家的理解我们结合一个存储流程图来说明一下：
+
+![](images/哈希流程图.png)
+
+总而言之，**JDK1.8**引入红黑树大程度优化了HashMap的性能，那么对于我们来讲保证HashSet集合元素的唯一，其实就是根据对象的hashCode和equals方法来决定的。如果我们往集合中存放自定义的对象，那么保证其唯一，就必须复写hashCode和equals方法建立属于当前对象的比较方式。
+
+##### LinkedHashSet
+
+我们知道HashSet保证元素唯一，可是元素存放进去是没有顺序的，那么我们要保证有序，怎么办呢？
+
+在HashSet下面有一个子类`java.util.LinkedHashSet`，它是链表和哈希表组合的一个数据存储结构。
+
+#### TreeSet集合
+
+可以对Set集合中的元素进行排序。
 			底层数据结构是二叉树。
 			保证元素唯一性的依据：
 			compareTo方法return 0.
-
 			TreeSet排序的第一种方式：让元素自身具备比较性。
 			元素需要实现Comparable接口，覆盖compareTo方法。
 			也种方式也成为元素的自然顺序，或者叫做默认顺序。
-
 			TreeSet的第二种排序方式。
 			当元素自身不具备比较性时，或者具备的比较性不是所需要的。
 			这时就需要让集合自身具备比较性。
 			在集合初始化时，就有了比较方式。
+
+
+### Collections
+
+#### 常用功能
+
+- `java.utils.Collections`是集合工具类，用来对集合进行操作。部分方法如下：
+
+- `public static <T> boolean addAll(Collection<T> c, T... elements)  `:往集合中添加一些元素。
+- `public static void shuffle(List<?> list) 打乱顺序`:打乱集合顺序。
+- `public static <T> void sort(List<T> list)`:将集合中元素按照默认规则排序。
+- `public static <T> void sort(List<T> list，Comparator<? super T> )`:将集合中元素按照指定规则排序。
+
+代码演示：
+
+```java
+public class CollectionsDemo {
+    public static void main(String[] args) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        //原来写法
+        //list.add(12);
+        //list.add(14);
+        //list.add(15);
+        //list.add(1000);
+        //采用工具类 完成 往集合中添加元素  
+        Collections.addAll(list, 5, 222, 1，2);
+        System.out.println(list);
+        //排序方法 
+        Collections.sort(list);
+        System.out.println(list);
+    }
+}
+结果：
+[5, 222, 1, 2]
+[1, 2, 5, 222]
 ```
 
+代码演示之后 ，发现我们的集合按照顺序进行了排列，可是这样的顺序是采用默认的顺序，如果想要指定顺序那该怎么办呢？
 
+我们发现还有个方法没有讲，`public static <T> void sort(List<T> list，Comparator<? super T> )`:将集合中元素按照指定规则排序。接下来讲解一下指定规则的排列。
 
+#### Comparator比较器
 
+我们还是先研究这个方法
 
-Map集合：该集合存储键值对。一对一对往里存。而且要保证键的唯一性。
-	1，添加。
-		put(K key, V value) 
-		putAll(Map<? extends K,? extends V> m) 
+`public static <T> void sort(List<T> list)`:将集合中元素按照默认规则排序。
 
-```
-2，删除。
-	clear() 
-	remove(Object key) 
+不过这次存储的是字符串类型。
 
-3，判断。
-	containsValue(Object value) 
-	containsKey(Object key) 
-	isEmpty() 
-```
-
-```
-4，获取。
-	get(Object key) 
-	size() 
-	values() 
-
-	entrySet() 
-	keySet() 
+```java
+public class CollectionsDemo2 {
+    public static void main(String[] args) {
+        ArrayList<String>  list = new ArrayList<String>();
+        list.add("cba");
+        list.add("aba");
+        list.add("sba");
+        list.add("nba");
+        //排序方法
+        Collections.sort(list);
+        System.out.println(list);
+    }
+}
 ```
 
-Map
-	|--Hashtable:底层是哈希表数据结构，不可以存入null键null值。该集合是线程同步的。jdk1.0.效率低。
-	|--HashMap：底层是哈希表数据结构，允许使用 null 值和 null 键，该集合是不同步的。将hashtable替代，jdk1.2.效率高。
-	|--TreeMap：底层是二叉树数据结构。线程不同步。可以用于给map集合中的键进行排序。
-
-和Set很像。
-其实大家，Set底层就是使用了Map集合。
-
-map集合的两种取出方式：
-1，Set<k> keySet：将map中所有的键存入到Set集合。因为set具备迭代器。
-	所有可以迭代方式取出所有的键，在根据get方法。获取每一个键对应的值。
-		
+结果：
 
 ```
-Map集合的取出原理：将map集合转成set集合。在通过迭代器取出。
+[aba, cba, nba, sba]
 ```
 
-2，Set<Map.Entry<k,v>> entrySet：将map集合中的映射关系存入到了set集合中，
-				而这个关系的数据类型就是：Map.Entry
+我们使用的是默认的规则完成字符串的排序，那么默认规则是怎么定义出来的呢？
+
+说到排序了，简单的说就是两个对象之间比较大小，那么在JAVA中提供了两种比较实现的方式，一种是比较死板的采用`java.lang.Comparable`接口去实现，一种是灵活的当我需要做排序的时候在去选择的`java.util.Comparator`接口完成。
+
+那么我们采用的`public static <T> void sort(List<T> list)`这个方法完成的排序，实际上要求了被排序的类型需要实现Comparable接口完成比较的功能，在String类型上如下：
+
+```java
+public final class String implements java.io.Serializable, Comparable<String>, CharSequence {
+```
+
+String类实现了这个接口，并完成了比较规则的定义，但是这样就把这种规则写死了，那比如我想要字符串按照第一个字符降序排列，那么这样就要修改String的源代码，这是不可能的了，那么这个时候我们可以使用
+
+`public static <T> void sort(List<T> list，Comparator<? super T> )`方法灵活的完成，这个里面就涉及到了Comparator这个接口，位于java.util包下，排序是comparator能实现的功能之一,该接口代表一个比较器，比较器具有可比性！顾名思义就是做排序的，通俗地讲需要比较两个对象谁排在前谁排在后，那么比较的方法就是：
+
+- ` public int compare(String o1, String o2)`：比较其两个参数的顺序。
+
+  > 两个对象比较的结果有三种：大于，等于，小于。
+  >
+  > 如果要按照升序排序，
+  > 则o1 小于o2，返回（负数），相等返回0，01大于02返回（正数）
+  > 如果要按照降序排序
+  > 则o1 小于o2，返回（正数），相等返回0，01大于02返回（负数）
+
+操作如下:
+
+```java
+public class CollectionsDemo3 {
+    public static void main(String[] args) {
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("cba");
+        list.add("aba");
+        list.add("sba");
+        list.add("nba");
+        //排序方法  按照第一个单词的降序
+        Collections.sort(list, new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.charAt(0) - o1.charAt(0);
+            }
+        });
+        System.out.println(list);
+    }
+}
+```
+
+结果如下：
 
 ```
-			Entry其实就是Map中的一个static内部接口。
-			为什么要定义在内部呢？
-			因为只有有了Map集合，有了键值对，才会有键值的映射关系。
-			关系属于Map集合中的一个内部事物。
-			而且该事物在直接访问Map集合中的元素。
+[sba, nba, cba, aba]
 ```
 
-map扩展知识。
+#### 简述Comparable和Comparator两个接口的区别。
 
-map集合被使用是因为具备映射关系。
+**Comparable**：强行对实现它的每个类的对象进行整体排序。这种排序被称为类的自然排序，类的compareTo方法被称为它的自然比较方法。只能在类中实现compareTo()一次，不能经常修改类的代码实现自己想要的排序。实现此接口的对象列表（和数组）可以通过Collections.sort（和Arrays.sort）进行自动排序，对象可以用作有序映射中的键或有序集合中的元素，无需指定比较器。
 
-"yureban"   Student("01" "zhangsan");
+**Comparator**强行对某个对象进行整体排序。可以将Comparator 传递给sort方法（如Collections.sort或 Arrays.sort），从而允许在排序顺序上实现精确控制。还可以使用Comparator来控制某些数据结构（如有序set或有序映射）的顺序，或者为那些没有自然顺序的对象collection提供排序。
 
-"yureban" Student("02" "lisi");
 
-"jiuyeban" "01" "wangwu";
-"jiuyeban" "02" "zhaoliu";
 
-一个学校有多个教室。每一个教室都有名称。
+### Map集合（接口）
+
+#### 概述
+
+现实生活中，我们常会看到这样的一种集合：IP地址与主机名，身份证号与个人，系统用户名与系统用户对象等，这种一一对应的关系，就叫做映射。Java提供了专门的集合类用来存放这种对象关系的对象，即`java.util.Map`接口。
+
+我们通过查看`Map`接口描述，发现`Map`接口下的集合与`Collection`接口下的集合，它们存储数据的形式不同。
+
+- `Collection`中的集合，元素是孤立存在的（理解为单身），向集合中存储元素采用一个个元素的方式存储。
+- `Map`中的集合，元素是成对存在的(理解为夫妻)。每个元素由键与值两部分组成，通过键可以找对所对应的值。
+- `Collection`中的集合称为单列集合，`Map`中的集合称为双列集合。
+- 需要注意的是，`Map`中的集合不能包含重复的键，值可以重复；每个键只能对应一个值。
+
+#### Map常用子类
+
+通过查看Map接口描述，看到Map有多个子类，这里我们主要讲解常用的HashMap集合、LinkedHashMap集合。
+
+- **HashMap<K,V>**：存储数据采用的哈希表结构，元素的存取顺序不能保证一致。由于要保证键的唯一、不重复，需要重写键的hashCode()方法、equals()方法。
+- **LinkedHashMap<K,V>**：HashMap下有个子类LinkedHashMap，存储数据采用的哈希表结构+链表结构。通过链表结构可以保证元素的存取顺序一致；通过哈希表结构可以保证的键的唯一、不重复，需要重写键的hashCode()方法、equals()方法。
+
+> tips：Map接口中的集合都有两个泛型变量<K,V>,在使用时，要为两个泛型变量赋予数据类型。两个泛型变量<K,V>的数据类型可以相同，也可以不同。
+
+#### Map接口中的常用方法
+
+Map接口中定义了很多方法，常用的如下：
+
+- `public V put(K key, V value)`:  把指定的键与指定的值添加到Map集合中。
+- `public V remove(Object key)`: 把指定的键 所对应的键值对元素 在Map集合中删除，返回被删除元素的值。
+- `public V get(Object key)` 根据指定的键，在Map集合中获取对应的值。
+- `boolean containsKey(Object key)  ` 判断集合中是否包含指定的键。
+- `public Set<K> keySet()`: 获取Map集合中所有的键，存储到Set集合中。
+- `public Set<Map.Entry<K,V>> entrySet()`: 获取到Map集合中所有的键值对对象的集合(Set集合)。
+
+##### **Hashmap**：
+
+##### 遍历键找值方式
+
+键找值方式：即通过元素中的键，获取键所对应的值
+
+分析步骤：
+
+1. 获取Map中所有的键，由于键是唯一的，所以返回一个Set集合存储所有的键。方法提示:`keyset()`
+2. 遍历键的Set集合，得到每一个键。
+3. 根据键，获取键所对应的值。方法提示:`get(K key)`
+
+##### 遍历键值对方式
+
+**Entry键值对对象**
+
+我们已经知道，`Map`中存放的是两种对象，一种称为**key**(键)，一种称为**value**(值)，它们在在`Map`中是一一对应关系，这一对对象又称做`Map`中的一个`Entry(项)`。`Entry`将键值对的对应关系封装成了对象。即键值对对象，这样我们在遍历`Map`集合时，就可以从每一个键值对（`Entry`）对象中获取对应的键与对应的值。
+
+ 既然Entry表示了一对键和值，那么也同样提供了获取对应键和对应值得方法：
+
+- `public K getKey()`：获取Entry对象中的键。
+- `public V getValue()`：获取Entry对象中的值。
+
+在Map集合中也提供了获取所有Entry对象的方法：
+
+- `public Set<Map.Entry<K,V>> entrySet()`: 获取到Map集合中所有的键值对对象的集合(Set集合)。
+
+**键值对方式：**
+
+即通过集合中每个键值对(Entry)对象，获取键值对(Entry)对象中的键与值。
+
+操作步骤与图解：
+
+1. 获取Map集合中，所有的键值对(Entry)对象，以Set集合形式返回。方法提示:`entrySet()`。
+2. 遍历包含键值对(Entry)对象的Set集合，得到每一个键值对(Entry)对象。
+3. 通过键值对(Entry)对象，获取Entry对象中的键与值。  方法提示:`getkey() getValue()`     
+
+```java
+public class MapDemo02 {
+    public static void main(String[] args) {
+        // 创建Map集合对象 
+        HashMap<String, String> map = new HashMap<String,String>();
+        // 添加元素到集合 
+        map.put("胡歌", "霍建华");
+        map.put("郭德纲", "于谦");
+        map.put("薛之谦", "大张伟");
+
+        // 获取 所有的 entry对象  entrySet
+        Set<Entry<String,String>> entrySet = map.entrySet();
+
+        // 遍历得到每一个entry对象
+        for (Entry<String, String> entry : entrySet) {
+           	// 解析 
+            String key = entry.getKey();
+            String value = entry.getValue();  
+            System.out.println(key+"的CP是:"+value);
+        }
+    }
+}
+```
+
+遍历图解：
+
+![](C:/%23/temp/15.%E3%80%90Map%E3%80%91/15.%E3%80%90Map%E3%80%91-%E7%AC%94%E8%AE%B0/%E5%B0%B1%E4%B8%9A%E7%8F%AD-day04-Map/img/Map%E9%9B%86%E5%90%88%E9%81%8D%E5%8E%86%E6%96%B9%E5%BC%8F%E4%BA%8C.bmp)
+
+> tips：Map集合不能直接使用迭代器或者foreach进行遍历。但是转成Set之后就可以使用了。
+
+##### 存储自定义类型键值
+
+练习：每位学生（姓名，年龄）都有自己的家庭住址。那么，既然有对应关系，则将学生对象和家庭住址存储到map集合中。学生作为键, 家庭住址作为值。
+
+> 注意，学生姓名相同并且年龄相同视为同一名学生。
+
+编写学生类：
+
+```java
+public class Student {
+    private String name;
+    private int age;
+
+    public Student() {
+    }
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Student student = (Student) o;
+        return age == student.age && Objects.equals(name, student.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, age);
+    }
+}
+```
+
+编写测试类：
+
+```java 
+public class HashMapTest {
+    public static void main(String[] args) {
+        //1,创建Hashmap集合对象。
+        Map<Student,String>map = new HashMap<Student,String>();
+        //2,添加元素。
+        map.put(newStudent("lisi",28), "上海");
+        map.put(newStudent("wangwu",22), "北京");
+        map.put(newStudent("zhaoliu",24), "成都");
+        map.put(newStudent("zhouqi",25), "广州");
+        map.put(newStudent("wangwu",22), "南京");
+        
+        //3,取出元素。键找值方式
+        Set<Student>keySet = map.keySet();
+        for(Student key: keySet){
+            Stringvalue = map.get(key);
+            System.out.println(key.toString()+"....."+value);
+        }
+    }
+}
+```
+
+- 当给HashMap中存放自定义对象时，如果自定义对象作为key存在，这时要保证对象唯一，必须复写对象的hashCode和equals方法(如果忘记，请回顾HashSet存放自定义对象)。
+- 如果要保证map中存放的key和取出的顺序一致，可以使用`java.util.LinkedHashMap`集合来存放。
+
+##### LinkedHashMap
+
+我们知道HashMap保证成对元素唯一，并且查询速度很快，可是成对元素存放进去是没有顺序的，那么我们要保证有序，还要速度快怎么办呢？
+
+在HashMap下面有一个子类LinkedHashMap，它是链表和哈希表组合的一个数据存储结构。
+
+```java
+public class LinkedHashMapDemo {
+    public static void main(String[] args) {
+        LinkedHashMap<String, String> map = new LinkedHashMap<String, String>();
+        map.put("邓超", "孙俪");
+        map.put("李晨", "范冰冰");
+        map.put("刘德华", "朱丽倩");
+        Set<Entry<String, String>> entrySet = map.entrySet();
+        for (Entry<String, String> entry : entrySet) {
+            System.out.println(entry.getKey() + "  " + entry.getValue());
+        }
+    }
+}
+```
+
+结果:
+
+```
+邓超  孙俪
+李晨  范冰冰
+刘德华  朱丽倩
+```
+
+##### TreeMap：
+
+底层是二叉树数据结构。线程不同步。可以用于给map集合中的键进行排序。
 
 
 
