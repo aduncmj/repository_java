@@ -458,7 +458,6 @@ final : 最终。作为一个修饰符，
 - 抽象类中的抽象方法要被使用，必须由子类**复写其所有的抽象方法**后，建立子类对象调用。
   如果子类只覆盖了部分抽象方法，那么该子类还是一个抽象类。
 
-
 **抽象类和一般类没有太大的不同。**该如何描述事物，就如何描述事物，只不过，该事物出现了一些看不懂的东西。这些不确定的部分，也是该事物的功能，需要明确出现。但是无法定义主体。因而通过抽象方法来表示。
 抽象类比一般类多个了抽象函数。就是在类中可以定义抽象方法。抽象类不可以实例化。
 
@@ -958,71 +957,402 @@ Exceptoin中有一个特殊的子类异常RuntimeException 运行时异常。
 
 
 
-## 泛型
-
-JDK1.5版本以后出现新特性。用于解决安全问题，是一个类型安全机制。
-
-好处
-1.将运行时期出现问题ClassCastException，转移到了编译时期。，
-	方便于程序员解决问题。让运行时问题减少，安全。，
-
-2，避免了强制转换麻烦。
-
-泛型格式：通过<>来定义要操作的引用数据类型。
-
-在使用java提供的对象时，什么时候写泛型呢？
-
-通常在集合框架中很常见，只要见到<>就要定义泛型。
-
-
-
 ## 集合
 
-枚举就是Vector特有的取出方式。
-发现枚举和迭代器很像。
-其实枚举和迭代是一样的。
+### 1.1 集合概述
 
-因为枚举的名称以及方法的名称都过长。
-所以被迭代器取代了。
-枚举郁郁而终了。
+- **集合**：集合是java中提供的一种容器，可以用来存储多个数据。
 
-Collection定义了集合框架的共性功能。
-1，添加
-	add(e);
-	addAll(collection);
+集合和数组既然都是容器，它们有啥区别呢？
 
-2，删除
-	remove(e);
-	removeAll(collection);
-	clear();
+- 数组的长度是固定的。集合的长度是可变的。
+- 数组中存储的是同一类型的元素，可以存储基本数据类型值。集合存储的都是对象。而且对象的类型可以不一致。在开发中一般当对象多的时候，使用集合进行存储。
 
-3，判断。
-	contains(e);
-	isEmpty();
+### 1.2  集合框架
 
-4，获取
-	iterator();
-	size();
+JAVASE提供了满足各种需求的API，在使用这些API前，先了解其继承与接口操作架构，才能了解何时采用哪个类，以及类之间如何彼此合作，从而达到灵活应用。
 
-5，获取交集。
-	retainAll();
+集合按照其存储结构可以分为两大类，分别是单列集合`java.util.Collection`和双列集合`java.util.Map`，今天我们主要学习`Collection`集合
 
-6，集合变数组。
-	toArray();
+- **Collection**：单列集合类的根接口，用于存储一系列符合某种规则的元素，它有两个重要的子接口，分别是`java.util.List`和`java.util.Set`。其中，`List`的特点是元素有序、元素可重复。`Set`的特点是元素无序，而且不可重复。`List`接口的主要实现类有`java.util.ArrayList`和`java.util.LinkedList`，`Set`接口的主要实现类有`java.util.HashSet`和`java.util.TreeSet`。
+
+从上面的描述可以看出JDK中提供了丰富的集合类库，为了便于初学者进行系统地学习，接下来通过一张图来描述整个集合类的继承体系。
+
+![](images/01_集合框架介绍.bmp)
 
 
 
-1，add方法的参数类型是Object。以便于接收任意类型对象。
+集合本身是一个工具，它存放在java.util包中。在`Collection`接口定义着单列集合框架中最最共性的内容。
 
-2，集合中存储的都是对象的引用(地址)
+### 1.3 Collection 常用功能
 
-什么是迭代器呢？
-其实就是集合的取出元素的方式。
-如同抓娃娃游戏机中的夹子。
+Collection是所有单列集合的父接口，因此在Collection中定义了单列集合(List和Set)通用的一些方法，这些方法可用于操作所有的单列集合。方法如下：
 
-迭代器是取出方式，会直接访问集合中的元素。
-所以将迭代器通过内部类的形式来进行描述。
-通过容器的iterator()方法获取该内部类的对象。
+- `public boolean add(E e)`：  把给定的对象添加到当前集合中 。
+- `public void clear()` :清空集合中所有的元素。
+- `public boolean remove(E e)`: 把给定的对象在当前集合中删除。
+- `public boolean contains(E e)`: 判断当前集合中是否包含给定的对象。
+- `public boolean isEmpty()`: 判断当前集合是否为空。
+- `public int size()`: 返回集合中元素的个数。
+- `public Object[] toArray()`: 把集合中的元素，存储到数组中。
+
+### Iterator迭代器
+
+#### 2.1 Iterator接口
+
+在程序开发中，经常需要遍历集合中的所有元素。针对这种需求，JDK专门提供了一个接口`java.util.Iterator`。`Iterator`接口也是Java集合中的一员，但它与`Collection`、`Map`接口有所不同，`Collection`接口与`Map`接口主要用于存储元素，而`Iterator`主要用于迭代访问（即遍历）`Collection`中的元素，因此`Iterator`对象也被称为迭代器。
+
+想要遍历Collection集合，那么就要获取该集合迭代器完成迭代操作，下面介绍一下获取迭代器的方法：
+
+- `public Iterator iterator()`: 获取集合对应的迭代器，用来遍历集合中的元素的。
+
+下面介绍一下迭代的概念：
+
+- **迭代**：即Collection集合元素的通用获取方式。在取元素之前先要判断集合中有没有元素，如果有，就把这个元素取出来，继续在判断，如果还有就再取出出来。一直把集合中的所有元素全部取出。这种取出方式专业术语称为迭代。
+
+Iterator接口的常用方法如下：
+
+- `public E next()`:返回迭代的下一个元素。
+- `public boolean hasNext()`:如果仍有元素可以迭代，则返回 true。
+
+接下来我们通过案例学习如何使用Iterator迭代集合中元素：
+
+```java
+public class IteratorDemo {
+  	public static void main(String[] args) {
+        // 使用多态方式 创建对象
+        Collection<String> coll = new ArrayList<String>();
+
+        // 添加元素到集合
+        coll.add("串串星人");
+        coll.add("吐槽星人");
+        coll.add("汪星人");
+        //遍历
+        //使用迭代器 遍历   每个集合对象都有自己的迭代器
+        Iterator<String> it = coll.iterator();
+        //  泛型指的是 迭代出 元素的数据类型
+        while(it.hasNext()){ //判断是否有迭代元素
+            String s = it.next();//获取迭代出的元素
+            System.out.println(s);
+        }
+  	}
+}
+```
+
+> tips:：在进行集合元素取出时，如果集合中已经没有元素了，还继续使用迭代器的next方法，将会发生java.util.NoSuchElementException没有集合元素的错误。
+
+#### 2.2 迭代器的实现原理
+
+在调用Iterator的next方法之前，迭代器的索引位于第一个元素之前，不指向任何元素，当第一次调用迭代器的next方法后，迭代器的索引会向后移动一位，指向第一个元素并将该元素返回，当再次调用next方法时，迭代器的索引会指向第二个元素并将该元素返回，依此类推，直到hasNext方法返回false，表示到达了集合的末尾，终止对元素的遍历。
+
+#### 2.3 增强for
+
+增强for循环(也称for each循环)是**JDK1.5**以后出来的一个高级for循环，专门用来遍历数组和集合的。它的内部原理其实是个Iterator迭代器，所以在遍历的过程中，不能对集合中的元素进行增删操作。
+
+格式：
+
+```java
+for(元素的数据类型  变量 : Collection集合or数组){ 
+  	//写操作代码
+}
+```
+
+它用于遍历Collection和数组。通常只进行遍历元素，不要在遍历的过程中对集合元素进行增删操作。
+
+
+
+### 泛型
+
+#### 3.1  泛型概述
+
+在前面学习集合时，我们都知道集合中是可以存放任意对象的，只要把对象存储集合后，那么这时他们都会被提升成Object类型。当我们在取出每一个对象，并且进行相应的操作，这时必须采用类型转换。
+
+大家观察下面代码：
+
+```java
+public class GenericDemo {
+	public static void main(String[] args) {
+		Collection coll = new ArrayList();
+		coll.add("abc");
+		coll.add("itcast");
+		coll.add(5);//由于集合没有做任何限定，任何类型都可以给其中存放
+		Iterator it = coll.iterator();
+		while(it.hasNext()){
+			//需要打印每个字符串的长度,就要把迭代出来的对象转成String类型
+			String str = (String) it.next();
+			System.out.println(str.length());
+		}
+	}
+}
+```
+
+程序在运行时发生了问题**java.lang.ClassCastException**。                                                                                             为什么会发生类型转换异常呢？                                                                                                                                       我们来分析下：由于集合中什么类型的元素都可以存储。导致取出时强转引发运行时 ClassCastException。                                                                                                                                                       怎么来解决这个问题呢？                                                                                                                                                           Collection虽然可以存储各种对象，但实际上通常Collection只存储同一类型对象。例如都是存储字符串对象。因此在JDK5之后，新增了**泛型**(**Generic**)语法，让你在设计API时可以指定类或方法支持泛型，这样我们使用API的时候也变得更为简洁，并得到了编译时期的语法检查。
+
+- **泛型**：可以在类或方法中预支地使用未知的类型。
+
+> tips:一般在创建对象时，将未知的类型确定具体的类型。当没有指定泛型时，默认类型为Object类型。
+
+#### 3.2  使用泛型的好处
+
+上一节只是讲解了泛型的引入，那么泛型带来了哪些好处呢？
+
+- 将运行时期的ClassCastException，转移到了编译时期变成了编译失败。
+- 避免了类型强转的麻烦。
+
+通过我们如下代码体验一下：
+
+```java
+public class GenericDemo2 {
+	public static void main(String[] args) {
+        Collection<String> list = new ArrayList<String>();
+        list.add("abc");
+        list.add("itcast");
+        // list.add(5);//当集合明确类型后，存放类型不一致就会编译报错
+        // 集合已经明确具体存放的元素类型，那么在使用迭代器的时候，迭代器也同样会知道具体遍历元素类型
+        Iterator<String> it = list.iterator();
+        while(it.hasNext()){
+            String str = it.next();
+            //当使用Iterator<String>控制元素类型后，就不需要强转了。获取到的元素直接就是String类型
+            System.out.println(str.length());
+        }
+	}
+}
+```
+
+> tips:泛型是数据类型的一部分，我们将类名与泛型合并一起看做数据类型。
+
+#### 3.3  泛型的定义与使用
+
+我们在集合中会大量使用到泛型，这里来完整地学习泛型知识。
+
+泛型，用来灵活地将数据类型应用到不同的类、方法、接口当中。将数据类型作为参数进行传递。
+
+##### 定义和使用含有泛型的类
+
+定义格式：
+
+```
+修饰符 class 类名<代表泛型的变量> {  }
+```
+
+例如，API中的ArrayList集合：
+
+```java
+class ArrayList<E>{ 
+    public boolean add(E e){ }
+
+    public E get(int index){ }
+   	....
+}
+```
+
+使用泛型： 即什么时候确定泛型。
+
+**在创建对象的时候确定泛型**
+
+ 例如，`ArrayList<String> list = new ArrayList<String>();`
+
+此时，变量E的值就是String类型,那么我们的类型就可以理解为：
+
+```java 
+class ArrayList<String>{ 
+     public boolean add(String e){ }
+
+     public String get(int index){  }
+     ...
+}
+```
+
+再例如，`ArrayList<Integer> list = new ArrayList<Integer>();`
+
+此时，变量E的值就是Integer类型,那么我们的类型就可以理解为：
+
+```java
+class ArrayList<Integer> { 
+     public boolean add(Integer e) { }
+
+     public Integer get(int index) {  }
+     ...
+}
+```
+
+##### 含有泛型的方法
+
+定义格式：
+
+```
+修饰符 <代表泛型的变量> 返回值类型 方法名(参数){  }
+```
+
+例如，
+
+```java
+public class MyGenericMethod {	  
+    public <MVP> void show(MVP mvp) {
+    	System.out.println(mvp.getClass());
+    }
+    
+    public <MVP> MVP show2(MVP mvp) {	
+    	return mvp;
+    }
+}
+```
+
+使用格式：**调用方法时，确定泛型的类型**
+
+```java
+public class GenericMethodDemo {
+    public static void main(String[] args) {
+        // 创建对象
+        MyGenericMethod mm = new MyGenericMethod();
+        // 演示看方法提示
+        mm.show("aaa");
+        mm.show(123);
+        mm.show(12.45);
+    }
+}
+```
+
+##### 含有泛型的接口
+
+定义格式：
+
+```
+修饰符 interface接口名<代表泛型的变量> {  }
+```
+
+例如，
+
+```java
+public interface MyGenericInterface<E>{
+	public abstract void add(E e);
+	
+	public abstract E getE();  
+}
+```
+
+使用格式：
+
+**1、定义类时确定泛型的类型**
+
+例如
+
+```java
+public class MyImp1 implements MyGenericInterface<String> {
+	@Override
+    public void add(String e) {
+        // 省略...
+    }
+
+	@Override
+	public String getE() {
+		return null;
+	}
+}
+```
+
+此时，泛型E的值就是String类型。
+
+ **2、始终不确定泛型的类型，直到创建对象时，确定泛型的类型**
+
+ 例如
+
+```java
+public class MyImp2<E> implements MyGenericInterface<E> {
+	@Override
+	public void add(E e) {
+       	 // 省略...
+	}
+
+	@Override
+	public E getE() {
+		return null;
+	}
+}
+```
+
+确定泛型：
+
+```java
+/*
+ * 使用
+ */
+public class GenericInterface {
+    public static void main(String[] args) {
+        MyImp2<String>  my = new MyImp2<String>();  
+        my.add("aa");
+    }
+}
+```
+
+#### 3.4  泛型通配符
+
+当使用泛型类或者接口时，传递的数据中，泛型类型不确定，可以通过通配符<?>表示。但是一旦使用泛型的通配符后，只能使用Object类中的共性方法，集合中元素自身方法无法使用。
+
+##### 通配符基本使用
+
+泛型的通配符:**不知道使用什么类型来接收的时候,此时可以使用?,?表示未知通配符。**
+
+此时只能接受数据,不能往该集合中存储数据。
+
+举个例子大家理解使用即可：
+
+```java
+public static void main(String[] args) {
+    Collection<Intger> list1 = new ArrayList<Integer>();
+    getElement(list1);
+    Collection<String> list2 = new ArrayList<String>();
+    getElement(list2);
+}
+public static void getElement(Collection<?> coll){}
+//？代表可以接收任意类型
+```
+
+> tips:泛型不存在继承关系 Collection<Object> list = new ArrayList<String>();这种是错误的。
+
+##### 通配符高级使用----受限泛型
+
+之前设置泛型的时候，实际上是可以任意设置的，只要是类就可以设置。但是在JAVA的泛型中可以指定一个泛型的**上限**和**下限**。
+
+**泛型的上限**：
+
+- **格式**： `类型名称 <? extends 类 > 对象名称`
+- **意义**： `只能接收该类型及其子类`
+
+**泛型的下限**：
+
+- **格式**： `类型名称 <? super 类 > 对象名称`
+- **意义**： `只能接收该类型及其父类型`
+
+比如：现已知Object类，String 类，Number类，Integer类，其中Number是Integer的父类
+
+```java
+public static void main(String[] args) {
+    Collection<Integer> list1 = new ArrayList<Integer>();
+    Collection<String> list2 = new ArrayList<String>();
+    Collection<Number> list3 = new ArrayList<Number>();
+    Collection<Object> list4 = new ArrayList<Object>();
+    
+    getElement(list1);
+    getElement(list2);//报错
+    getElement(list3);
+    getElement(list4);//报错
+  
+    getElement2(list1);//报错
+    getElement2(list2);//报错
+    getElement2(list3);
+    getElement2(list4);
+  
+}
+// 泛型的上限：此时的泛型?，必须是Number类型或者Number类型的子类
+public static void getElement1(Collection<? extends Number> coll){}
+// 泛型的下限：此时的泛型?，必须是Number类型或者Number类型的父类
+public static void getElement2(Collection<? super Number> coll){}
+```
+
+
+
+### set
 
 |--Set：元素是无序(存入和取出的顺序不一定一致)，元素不可以重复。、
 	|--HashSet:底层数据结构是哈希表。是线程不安全的。不同步。
@@ -1036,7 +1366,7 @@ Collection定义了集合框架的共性功能。
 ```
 
 ```
-|--TreeSet：
+	|--TreeSet：
 ```
 
 Set集合的功能和Collection是一致的。
