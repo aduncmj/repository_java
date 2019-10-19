@@ -958,6 +958,252 @@ Exceptoin中有一个特殊的子类异常RuntimeException 运行时异常。
 
 
 
+## 泛型
+
+JDK1.5版本以后出现新特性。用于解决安全问题，是一个类型安全机制。
+
+好处
+1.将运行时期出现问题ClassCastException，转移到了编译时期。，
+	方便于程序员解决问题。让运行时问题减少，安全。，
+
+2，避免了强制转换麻烦。
+
+泛型格式：通过<>来定义要操作的引用数据类型。
+
+在使用java提供的对象时，什么时候写泛型呢？
+
+通常在集合框架中很常见，只要见到<>就要定义泛型。
+
+
+
+## 集合
+
+枚举就是Vector特有的取出方式。
+发现枚举和迭代器很像。
+其实枚举和迭代是一样的。
+
+因为枚举的名称以及方法的名称都过长。
+所以被迭代器取代了。
+枚举郁郁而终了。
+
+Collection定义了集合框架的共性功能。
+1，添加
+	add(e);
+	addAll(collection);
+
+2，删除
+	remove(e);
+	removeAll(collection);
+	clear();
+
+3，判断。
+	contains(e);
+	isEmpty();
+
+4，获取
+	iterator();
+	size();
+
+5，获取交集。
+	retainAll();
+
+6，集合变数组。
+	toArray();
+
+
+
+1，add方法的参数类型是Object。以便于接收任意类型对象。
+
+2，集合中存储的都是对象的引用(地址)
+
+什么是迭代器呢？
+其实就是集合的取出元素的方式。
+如同抓娃娃游戏机中的夹子。
+
+迭代器是取出方式，会直接访问集合中的元素。
+所以将迭代器通过内部类的形式来进行描述。
+通过容器的iterator()方法获取该内部类的对象。
+
+|--Set：元素是无序(存入和取出的顺序不一定一致)，元素不可以重复。、
+	|--HashSet:底层数据结构是哈希表。是线程不安全的。不同步。
+			HashSet是如何保证元素唯一性的呢？
+			是通过元素的两个方法，hashCode和equals来完成。
+			如果元素的HashCode值相同，才会判断equals是否为true。
+			如果元素的hashcode值不同，不会调用equals。
+
+```
+		注意,对于判断元素是否存在，以及删除等操作，依赖的方法是元素的hashcode和equals方法。
+```
+
+```
+|--TreeSet：
+```
+
+Set集合的功能和Collection是一致的。
+
+LinkedList:特有方法：
+addFirst();
+addLast();
+
+getFirst();
+getLast();
+获取元素，但不删除元素。如果集合中没有元素，会出现NoSuchElementException
+
+removeFirst();
+removeLast();
+获取元素，但是元素被删除。如果集合中没有元素，会出现NoSuchElementException
+
+在JDK1.6出现了替代方法。
+
+offerFirst();
+offerLast();
+
+peekFirst();
+peekLast();
+获取元素，但不删除元素。如果集合中没有元素，会返回null。
+
+pollFirst();
+pollLast();
+获取元素，但是元素被删除。如果集合中没有元素，会返回null。
+
+Collection
+	|--List:元素是有序的，元素可以重复。因为该集合体系有索引。
+		|--ArrayList:底层的数据结构使用的是数组结构。特点：查询速度很快。但是增删稍慢。线程不同步。
+		|--LinkedList:底层使用的链表数据结构。特点：增删速度很快，查询稍慢。线程不同步。
+		|--Vector:底层是数组数据结构。线程同步。被ArrayList替代了。因为效率低。
+
+```
+|--Set：元素是无序，元素不可以重复。、
+```
+
+List：
+	特有方法。凡是可以操作角标的方法都是该体系特有的方法。
+
+增
+	add(index,element);
+	addAll(index,Collection);
+
+删
+	remove(index);
+
+改
+	set(index,element);
+查
+	get(index):
+	subList(from,to);
+	listIterator();
+	int indexOf(obj):获取指定元素的位置。
+	ListIterator listIterator();
+
+
+
+
+
+List集合特有的迭代器。ListIterator是Iterator的子接口。
+
+在迭代时，不可以通过集合对象的方法操作集合中的元素。
+因为会发生ConcurrentModificationException异常。
+
+所以，在迭代器时，只能用迭代器的放过操作元素，可是Iterator方法是有限的，
+只能对元素进行判断，取出，删除的操作，
+如果想要其他的操作如添加，修改等，就需要使用其子接口，ListIterator。
+
+该接口只能通过List集合的listIterator方法获取。
+
+Set:无序，不可以重复元素。
+	|--HashSet：数据结构是哈希表。线程是非同步的。
+				保证元素唯一性的原理：判断元素的hashCode值是否相同。
+				如果相同，还会继续判断元素的equals方法，是否为true。
+
+```
+|--TreeSet：可以对Set集合中的元素进行排序。
+			底层数据结构是二叉树。
+			保证元素唯一性的依据：
+			compareTo方法return 0.
+
+			TreeSet排序的第一种方式：让元素自身具备比较性。
+			元素需要实现Comparable接口，覆盖compareTo方法。
+			也种方式也成为元素的自然顺序，或者叫做默认顺序。
+
+			TreeSet的第二种排序方式。
+			当元素自身不具备比较性时，或者具备的比较性不是所需要的。
+			这时就需要让集合自身具备比较性。
+			在集合初始化时，就有了比较方式。
+```
+
+
+
+
+
+Map集合：该集合存储键值对。一对一对往里存。而且要保证键的唯一性。
+	1，添加。
+		put(K key, V value) 
+		putAll(Map<? extends K,? extends V> m) 
+
+```
+2，删除。
+	clear() 
+	remove(Object key) 
+
+3，判断。
+	containsValue(Object value) 
+	containsKey(Object key) 
+	isEmpty() 
+```
+
+```
+4，获取。
+	get(Object key) 
+	size() 
+	values() 
+
+	entrySet() 
+	keySet() 
+```
+
+Map
+	|--Hashtable:底层是哈希表数据结构，不可以存入null键null值。该集合是线程同步的。jdk1.0.效率低。
+	|--HashMap：底层是哈希表数据结构，允许使用 null 值和 null 键，该集合是不同步的。将hashtable替代，jdk1.2.效率高。
+	|--TreeMap：底层是二叉树数据结构。线程不同步。可以用于给map集合中的键进行排序。
+
+和Set很像。
+其实大家，Set底层就是使用了Map集合。
+
+map集合的两种取出方式：
+1，Set<k> keySet：将map中所有的键存入到Set集合。因为set具备迭代器。
+	所有可以迭代方式取出所有的键，在根据get方法。获取每一个键对应的值。
+		
+
+```
+Map集合的取出原理：将map集合转成set集合。在通过迭代器取出。
+```
+
+2，Set<Map.Entry<k,v>> entrySet：将map集合中的映射关系存入到了set集合中，
+				而这个关系的数据类型就是：Map.Entry
+
+```
+			Entry其实就是Map中的一个static内部接口。
+			为什么要定义在内部呢？
+			因为只有有了Map集合，有了键值对，才会有键值的映射关系。
+			关系属于Map集合中的一个内部事物。
+			而且该事物在直接访问Map集合中的元素。
+```
+
+map扩展知识。
+
+map集合被使用是因为具备映射关系。
+
+"yureban"   Student("01" "zhangsan");
+
+"yureban" Student("02" "lisi");
+
+"jiuyeban" "01" "wangwu";
+"jiuyeban" "02" "zhaoliu";
+
+一个学校有多个教室。每一个教室都有名称。
+
+
+
 ## 多进程
 进程：是一个正在执行中的程序。
 
@@ -1419,272 +1665,4 @@ char	Character
 其他进制转成十进制。
 	parseInt(string,radix);
 
-## 集合
 
-枚举就是Vector特有的取出方式。
-发现枚举和迭代器很像。
-其实枚举和迭代是一样的。
-
-因为枚举的名称以及方法的名称都过长。
-所以被迭代器取代了。
-枚举郁郁而终了。
-
-Collection定义了集合框架的共性功能。
-1，添加
-	add(e);
-	addAll(collection);
-
-2，删除
-	remove(e);
-	removeAll(collection);
-	clear();
-
-3，判断。
-	contains(e);
-	isEmpty();
-
-4，获取
-	iterator();
-	size();
-
-5，获取交集。
-	retainAll();
-
-6，集合变数组。
-	toArray();
-
-
-
-1，add方法的参数类型是Object。以便于接收任意类型对象。
-
-2，集合中存储的都是对象的引用(地址)
-
-
-什么是迭代器呢？
-其实就是集合的取出元素的方式。
-如同抓娃娃游戏机中的夹子。
-
-迭代器是取出方式，会直接访问集合中的元素。
-所以将迭代器通过内部类的形式来进行描述。
-通过容器的iterator()方法获取该内部类的对象。
-
-|--Set：元素是无序(存入和取出的顺序不一定一致)，元素不可以重复。、
-	|--HashSet:底层数据结构是哈希表。是线程不安全的。不同步。
-			HashSet是如何保证元素唯一性的呢？
-			是通过元素的两个方法，hashCode和equals来完成。
-			如果元素的HashCode值相同，才会判断equals是否为true。
-			如果元素的hashcode值不同，不会调用equals。
-
-			注意,对于判断元素是否存在，以及删除等操作，依赖的方法是元素的hashcode和equals方法。
-
-
-	|--TreeSet：
-
-Set集合的功能和Collection是一致的。
-
-LinkedList:特有方法：
-addFirst();
-addLast();
-
-getFirst();
-getLast();
-获取元素，但不删除元素。如果集合中没有元素，会出现NoSuchElementException
-
-removeFirst();
-removeLast();
-获取元素，但是元素被删除。如果集合中没有元素，会出现NoSuchElementException
-
-
-在JDK1.6出现了替代方法。
-
-offerFirst();
-offerLast();
-
-
-peekFirst();
-peekLast();
-获取元素，但不删除元素。如果集合中没有元素，会返回null。
-
-pollFirst();
-pollLast();
-获取元素，但是元素被删除。如果集合中没有元素，会返回null。
-
-
-Collection
-	|--List:元素是有序的，元素可以重复。因为该集合体系有索引。
-		|--ArrayList:底层的数据结构使用的是数组结构。特点：查询速度很快。但是增删稍慢。线程不同步。
-		|--LinkedList:底层使用的链表数据结构。特点：增删速度很快，查询稍慢。线程不同步。
-		|--Vector:底层是数组数据结构。线程同步。被ArrayList替代了。因为效率低。
-
-
-	|--Set：元素是无序，元素不可以重复。、
-
-
-List：
-	特有方法。凡是可以操作角标的方法都是该体系特有的方法。
-
-增
-	add(index,element);
-	addAll(index,Collection);
-
-删
-	remove(index);
-
-改
-	set(index,element);
-查
-	get(index):
-	subList(from,to);
-	listIterator();
-	int indexOf(obj):获取指定元素的位置。
-	ListIterator listIterator();
-
-
-
-
-
-List集合特有的迭代器。ListIterator是Iterator的子接口。
-
-在迭代时，不可以通过集合对象的方法操作集合中的元素。
-因为会发生ConcurrentModificationException异常。
-
-所以，在迭代器时，只能用迭代器的放过操作元素，可是Iterator方法是有限的，
-只能对元素进行判断，取出，删除的操作，
-如果想要其他的操作如添加，修改等，就需要使用其子接口，ListIterator。
-
-该接口只能通过List集合的listIterator方法获取。
-
-
-Set:无序，不可以重复元素。
-	|--HashSet：数据结构是哈希表。线程是非同步的。
-				保证元素唯一性的原理：判断元素的hashCode值是否相同。
-				如果相同，还会继续判断元素的equals方法，是否为true。
-
-	|--TreeSet：可以对Set集合中的元素进行排序。
-				底层数据结构是二叉树。
-				保证元素唯一性的依据：
-				compareTo方法return 0.
-	
-				TreeSet排序的第一种方式：让元素自身具备比较性。
-				元素需要实现Comparable接口，覆盖compareTo方法。
-				也种方式也成为元素的自然顺序，或者叫做默认顺序。
-	
-				TreeSet的第二种排序方式。
-				当元素自身不具备比较性时，或者具备的比较性不是所需要的。
-				这时就需要让集合自身具备比较性。
-				在集合初始化时，就有了比较方式。
-
-泛型：JDK1.5版本以后出现新特性。用于解决安全问题，是一个类型安全机制。
-
-好处
-1.将运行时期出现问题ClassCastException，转移到了编译时期。，
-	方便于程序员解决问题。让运行时问题减少，安全。，
-
-2，避免了强制转换麻烦。
-
-
-泛型格式：通过<>来定义要操作的引用数据类型。
-
-在使用java提供的对象时，什么时候写泛型呢？
-
-通常在集合框架中很常见，
-只要见到<>就要定义泛型。
-
-其实<> 就是用来接收类型的。
-
-当使用集合时，将集合中要存储的数据类型作为参数传递到<>中即可。
-
-当元素自身不具备比较性，或者具备的比较性不是所需要的。
-这时需要让容器自身具备比较性。
-定义了比较器，将比较器对象作为参数传递给TreeSet集合的构造函数。
-
-当两种排序都存在时，以比较器为主。
-
-定义一个类，实现Comparator接口，覆盖compare方法。
-
-//泛型类定义的泛型，在整个类中有效。如果被方法使用，
-//那么泛型类的对象明确要操作的具体类型后，所有要操作的类型就已经固定了。
-//
-//为了让不同方法可以操作不同类型，而且类型还不确定。
-//那么可以将泛型定义在方法上。
-
-
-/*
-特殊之处：
-静态方法不可以访问类上定义的泛型。
-如果静态方法操作的应用数据类型不确定，可以将泛型定义在方法上。
-
-//泛型类。
-/*
-什么时候定义泛型类？
-当类中要操作的引用数据类型不确定的时候，
-早期定义Object来完成扩展。
-现在定义泛型来完成扩展。
-*/
-
-? 通配符。也可以理解为占位符。
-泛型的限定；
-？ extends E: 可以接收E类型或者E的子类型。上限。
-？ super E: 可以接收E类型或者E的父类型。下限
-
-Map集合：该集合存储键值对。一对一对往里存。而且要保证键的唯一性。
-	1，添加。
-		put(K key, V value) 
-		putAll(Map<? extends K,? extends V> m) 
-
-	2，删除。
-		clear() 
-		remove(Object key) 
-	
-	3，判断。
-		containsValue(Object value) 
-		containsKey(Object key) 
-		isEmpty() 
-
-
-	4，获取。
-		get(Object key) 
-		size() 
-		values() 
-	
-		entrySet() 
-		keySet() 
-
-Map
-	|--Hashtable:底层是哈希表数据结构，不可以存入null键null值。该集合是线程同步的。jdk1.0.效率低。
-	|--HashMap：底层是哈希表数据结构，允许使用 null 值和 null 键，该集合是不同步的。将hashtable替代，jdk1.2.效率高。
-	|--TreeMap：底层是二叉树数据结构。线程不同步。可以用于给map集合中的键进行排序。
-
-
-和Set很像。
-其实大家，Set底层就是使用了Map集合。
-
-map集合的两种取出方式：
-1，Set<k> keySet：将map中所有的键存入到Set集合。因为set具备迭代器。
-	所有可以迭代方式取出所有的键，在根据get方法。获取每一个键对应的值。
-		
-
-	Map集合的取出原理：将map集合转成set集合。在通过迭代器取出。
-
-
-2，Set<Map.Entry<k,v>> entrySet：将map集合中的映射关系存入到了set集合中，
-				而这个关系的数据类型就是：Map.Entry
-
-				Entry其实就是Map中的一个static内部接口。
-				为什么要定义在内部呢？
-				因为只有有了Map集合，有了键值对，才会有键值的映射关系。
-				关系属于Map集合中的一个内部事物。
-				而且该事物在直接访问Map集合中的元素。
-
-map扩展知识。
-
-map集合被使用是因为具备映射关系。
-
-"yureban"   Student("01" "zhangsan");
-
-"yureban" Student("02" "lisi");
-
-"jiuyeban" "01" "wangwu";
-"jiuyeban" "02" "zhaoliu";
-
-一个学校有多个教室。每一个教室都有名称。
