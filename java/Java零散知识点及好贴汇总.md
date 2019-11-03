@@ -107,7 +107,9 @@ Java 则没有这样的问题，因为它采用了不同的装载方法。由于
 
 ![Java核心技术+卷1+基础知识+原书第10版](images/FastStoneEditor1.bmp)
 
+# 深入理解Java的接口和抽象类
 
+[深入理解Java的接口和抽象类](https://www.cnblogs.com/dolphin0520/p/3811437.html)
 
 
 
@@ -855,6 +857,12 @@ public class Demo09CalendarMethod {
 
 # 其他
 ---
+
+
+
+## Java并发编程：进程和线程之由来
+
+
 
 
 
