@@ -948,6 +948,10 @@ public class ChangeArgs {
 相同点：两边的算子都为boolean型，且结果也为boolean; 
 不同点：|两边的算子都必须执行；||若左边为true，则右边短路不予执行，若左边为false,右边还要执行。
 
+## 内存堆和栈的区别
+
+[内存堆和栈的区别](https://www.cnblogs.com/lln7777/archive/2012/03/14/2396164.html)
+
 
 
 
