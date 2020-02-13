@@ -1,3 +1,11 @@
+
+
+
+
+
+
+
+
 <!-- TOC -->
 
 - [帖子](#帖子)
@@ -162,25 +170,244 @@ getResourceAsStream读取的文件路径只局限与工程的源文件夹中，�
 ![](https://upload-images.jianshu.io/upload_images/1732196-7260f24182dcfac5.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-# 初始化和类装载
+# 对象初始化
 ---
-在许多传统语言里，程序都是作为启动过程的一部分一次性载入的。随后进行的是初始化，再是正式执行程序。在这些语言中，必须对初始化过程进行慎重的控制，保证 static数据的初始化不会带来麻烦。比如在一个static 数据获得初始化之前，就有另一个 static数据希望它是一个有效值，那么在 C++中就会造成问题。
-Java 则没有这样的问题，因为它采用了不同的装载方法。由于 Java 中的一切东西都是对象，所以许多活动变得更加简单，这个问题便是其中的一例。正如下一章会讲到的那样，每个对象的代码都存在于独立的文件中。除非真的需要代码，否则那个文件是不会载入的。通常，我们可认为除非那个类的一个对象构造完毕，否则代码不会真的载入。由于static 方法存在一些细微的歧义，所以也能认为“类代码在首次使用的时候载
+> 参考：[java类的初始化顺序](http://blog.sina.com.cn/s/blog_4cc16fc50100bjjp.html)
 
-**初始化**
+对于静态变量、静态初始化块、变量、初始化块、构造器，它们的初始化顺序依次是**（静态变量、静态初始化块）>（变量、初始化块）>构造器**。我们也可以通过下面的测试代码来验证这一点：
 
-![](https://upload-images.jianshu.io/upload_images/1732196-8c6100a8d2aea0bd.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+```java
+public class InitialOrderTest {
+// 静态变量
+public static String staticField = "静态变量";
+// 变量
+public String field = "变量";
+// 静态初始化块
+static {
+System.out.println(staticField);
+System.out.println("静态初始化块");
+}
+// 初始化块
+{
+System.out.println(field);
+System.out.println("初始化块");
+}
+// 构造器
+public InitialOrderTest() {
+System.out.println("构造器");
+}
+public static void main(String[] args) {
+new InitialOrderTest();
+}
+}
+```
 
-![](https://upload-images.jianshu.io/upload_images/1732196-e22a22d1323ae04d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+运行以上代码，我们会得到如下的输出结果：
 
-对Beetle 运行Java 时，发生的**第一件事情**是装载程序到外面找到那个类。在装载过程中，装载程序注意它有一个基础类（即extends 关键字要表达的意思），所以随之将其载入。无论是否准备生成那个基础类的一个对象，这个过程都会发生（请试着将对象的创建代码当作注释标注出来，自己去证实）。
-若基础类含有另一个基础类，则另一个基础类随即也会载入，以此类推。接下来，会在根基础类（此时是Insect）执行 static 初始化，再在下一个衍生类执行，以此类推。保证这个顺序是非常关键的，因为衍生类的初始化可能要依赖于对基础类成员的正确初始化。此时，**必要的类已全部装载完毕，所以能够创建对象**。首先，**这个对象中的所有基本数据类型都会设成它们的默认值，而将对象句柄设为null**。随后会调用基础类构建器。在这种情况下，调用是自动进行的。但也完全可以用super 来自行指定构建器调用（就象在Beetle()构建器中的第一个操作一样）。基础类的构建采用与衍生类构建器完全相同的处理过程。基础顺构建器完成以后，实例变量会按本来的顺序得以初始化。最后，执行构建器剩余的主体部分。
+> 静态变量
+> 静态初始化块
+> 变量
+> 初始化块
+> 构造器
 
-总结，先是基础类及衍生类的static，接着是基础类的基本数据类型和构造函数，再是衍生类的基本数据类型和构造函数？？
+这与上文中说的完全符合。那么对于继承情况下又会怎样呢？我们仍然以一段测试代码来获取最终结果：
 
-**类加载过程**
+```java
+class Parent {
+ // 静态变量
+ public static String p_StaticField = "父类--静态变量";
+ // 变量
+ public String p_Field = "父类--变量";
+ protected int i = 9;
+ protected int j = 0;
+ // 静态初始化块
+ static {
+  System.out.println(p_StaticField);
+  System.out.println("父类--静态初始化块");
+ }
+ // 初始化块
+ {
+  System.out.println(p_Field);
+  System.out.println("父类--初始化块");
+ }
+// 构造器
+ public Parent() {
+  System.out.println("父类--构造器");
+  System.out.println("i=" + i + ", j=" + j);
+  j = 20;
+ }
+}
 
-![摘自 Java核心技术 卷 2 高级特性 原书第10版](images/2019-10-20_171206.png)
+public class SubClass extends Parent {
+ // 静态变量
+ public static String s_StaticField = "子类--静态变量";
+ // 变量
+ public String s_Field = "子类--变量";
+ // 静态初始化块
+ static {
+  System.out.println(s_StaticField);
+  System.out.println("子类--静态初始化块");
+ }
+ // 初始化块
+ {
+  System.out.println(s_Field);
+  System.out.println("子类--初始化块");
+ }
+// 构造器
+ public SubClass() {
+  System.out.println("子类--构造器");
+  System.out.println("i=" + i + ",j=" + j);
+ }
+// 程序入口
+ public static void main(String[] args) {
+  System.out.println("子类main方法");
+  new SubClass();
+ }
+}
+```
+
+运行一下上面的代码，结果马上呈现在我们的眼前：
+
+> 父类--静态变量
+> 父类--静态初始化块
+> 子类--静态变量
+> 子类--静态初始化块
+> 子类main方法
+> 父类--变量
+> 父类--初始化块
+> 父类--构造器
+> i=9, j=0
+> 子类--变量
+> 子类--初始化块
+> 子类--构造器
+> i=9,j=20
+
+ 现在，结果已经不言自明了。子类的静态变量和静态初始化块的初始化是在父类的变量、初始化块和构造器初始化之前就完成了。
+
+**静态变量、静态初始化块，变量、初始化块初始化的顺序取决于它们在类中出现的先后顺序。**
+
+**执行过程分析**
+
+(1)访问SubClass.main(),(这是一个static方法)，于是装载器就会为你寻找已经编译的SubClass类的代码（也就是SubClass.class文件）。在装载的过程中，装载器注意到它有一个基类（也就是extends所要表示的意思），于是它再装载基类。不管你创不创建基类对象，这个过程总会发生。如果基类还有基类，那么第二个基类也会被装载，依此类推。
+
+(2)执行根基类的**static初始化**，然后是下一个派生类的static初始化，依此类推。这个顺序非常重要，因为派生类的“static初始化”有可能要依赖基类成员的正确初始化。
+
+(3)当所有必要的类都已经装载结束，就能够创建对象。首先，这个对象中的所有**基本数据类型**都会设成它们的默认值，而将对象句柄设为null，随后会调用**基础类构建器**。**用new SubClass（）创建对象之前，先执行main()方法体。**
+
+(4)类SubClass存在父类，则调用父类的构造函数，你可以使用super来指定调用哪个构造函数（也就是Beetle（）构造函数所做的第一件事）。
+
+(5)基类的构造过程以及构造顺序，同派生类的相同。首先基类中各个变量按照字面顺序进行初始化，然后执行基类的构造函数的其余部分。对子类成员数据按照它们声明的顺序初始化，执行子类构造函数的其余部分。
+
+**总结**
+
+ 1．父类静态变量和静态代码块（静态初始化块） ，按在代码中出现的顺序依次执行
+ 2．子类静态变量和静态代码块 （静态初始化块），按在代码中出现的顺序依次执行
+ 3．父类非静态变量和代码块（初始化块） ，按在代码中出现的顺序依次执行
+ 4．父类构造方法
+ 5．子类非静态变量和代码块（初始化块） ，按在代码中出现的顺序依次执行
+ 6．子类构造方法 	
+
+> 除构造方法外的方法如果不调用就不会初始化
+
+**PS:**如果类已经被加载： 则静态代码块和静态变量就不用重复执行，再创建类对象时，只执行与实例相关的变量初始化和构造方法。
+
+
+
+# 类装载
+
+> 参考：[java类的加载机制](https://www.cnblogs.com/ityouknow/p/5603287.html)
+
+## 什么是类的加载
+
+类的加载指的是将类的.class文件中的二进制数据读入到内存中，将其放在运行时数据区的**方法区**内，然后在**堆区**创建一个java.lang.Class对象，用来封装类在方法区内的数据结构。类的加载的最终产品是位于堆区中的Class对象，Class对象封装了类在方法区内的数据结构，并且向Java程序员提供了访问方法区内的数据结构的接口。
+
+
+
+## 类的生命周期
+
+![](images/2020-02-13_163054.png)
+
+
+
+## 类加载器
+
+请注意，虚拟机只加载程序执行时所需要的类文件。例如，假设程序从MyProgram.class开始运行，下面是虚拟机执行的步骤：
+1）虚拟机有一个用于加载类文件的机制，例如，从磁盘上读取文件或者请求Web上的文件；它使用该机制来加载MyProgram类文件中的内容。
+2）如果MyProgram类拥有类型为另一个类的域，或者是拥有超类，那么这些类文件也会被加载。（加载某个类所依赖的所有类的过程称为类的解析。）
+3）接着，虚拟机执行MyProgram中的main方法（它是静态的，无需创建类的实例）。
+4）如果main方法或者main调用的方法要用到更多的类，那么接下来就会加载这些类。
+以上是**类加载过程**。
+
+然而，类加载机制并非只使用单个的类加载器。每个Java程序至少拥有三个类加载器：
+
+- **引导类加载器**
+- **扩展类加载器**
+- **系统类加载器（有时也称为应用类加载器）**
+
+引导类加载器负责加载系统类（通常从JAR文件rt.jar中进行加载）。它是虚拟机不可分割的一部分，而且通常是用C语言来实现的。引导类加载器没有对应的ClassLoader对象，例如，该方法：String.class.getClassLoader()
+将返回null。
+
+扩展类加载器用于从jre/lib/ext目录加载“标准的扩展”。可以将JAR文件放入该目录，这样即使没有任何类路径，扩展类加载器也可以找到其中的各个类。
+
+系统类加载器用于加载应用类。它负责加载用户类路径（ClassPath）所指定的类，开发者可以直接使用该类加载器，如果应用程序中没有自定义过自己的类加载器，一般情况下这个就是程序中默认的类加载器。
+
+在Oracle的Java语言实现中，扩展类加载器和系统类加载器都是用Java来实现的。它们都是URLClassLoader类的实例。
+
+应用程序都是由以上这三种类加载器互相配合进行加载的，如果有必要，我们还可以加入自定义的类加载器。因为JVM自带的ClassLoader只是懂得从本地文件系统加载标准的java class文件，因此如果编写了自己ClassLoader，便可以做到如下几点：
+
+1）在执行非置信代码之前，自动验证数字签名。
+
+2）动态地创建符合用户特定需要的定制化构建类。
+
+3）从特定的场所取得java class，例如数据库中和网络中。
+
+PS:**类加载的缓存机制**将会保证所有加载过的Class都会被缓存，当程序中需要使用某个Class时，类加载器先从缓存区寻找该Class，只有缓存区不存在，系统才会读取该类对应的二进制数据，并将其转换成Class对象，存入缓存区。
+
+**寻找类加载器，**先来一个小例子
+
+```java
+package com.neo.classloader;
+public class ClassLoaderTest {
+     public static void main(String[] args) {
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        System.out.println(loader);
+        System.out.println(loader.getParent());
+        System.out.println(loader.getParent().getParent());
+    }
+}
+```
+
+运行后，输出结果：
+
+> ```
+> sun.misc.Launcher$AppClassLoader@64fef26a
+> sun.misc.Launcher$ExtClassLoader@1ddd40f3
+> null
+> ```
+
+从上面的结果可以看出，并没有获取到ExtClassLoader的父Loader，原因是Bootstrap Loader（引导类加载器）是用C语言实现的，找不到一个确定的返回父Loader的方式，于是就返回null。
+
+这几种类加载器的层次关系如下图所示：
+
+![](images/2020-02-13_165539.png)
+
+**注意：这里父类加载器并不是通过继承关系来实现的，而是采用组合实现的。**
+
+
+
+## 类加载的三种方式
+
+1、命令行启动应用时候由JVM初始化加载
+
+2、通过Class.forName()方法动态加载
+
+3、通过ClassLoader.loadClass()方法动态加载
+
+
+
+
+
+
 
 ![](images/QQ图片20191020203650.jpg)
 
