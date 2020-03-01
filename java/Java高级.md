@@ -728,3 +728,10 @@ public class ServerDemo {
 ![](images/效果图2.png)图解：
 
 ![](images/BS通信.bmp)
+
+
+
+## Java注解
+
+[Java基础加强总结(一)——注解(Annotation)](https://www.cnblogs.com/xdp-gacl/p/3622275.html)
+
