@@ -307,7 +307,29 @@ public class SubClass extends Parent {
 
 > 除构造方法外的方法如果不调用就不会初始化
 
-**PS:**如果类已经被加载： 则静态代码块和静态变量就不用重复执行，再创建类对象时，只执行与实例相关的变量初始化和构造方法。
+**PS:**如果类已经被加载： 则静态代码块和静态变量就不用重复执行，再创建类对象时，只执行与实例相关的变量初始化和构造方法。也就是说类再被ClassLoader第一次加载时才会执行静态代码块和静态变量。
+
+案例：
+
+```java
+public class Test {
+    public static Test t1 = new Test();
+    {
+        System.out.println("A");
+    }
+    static{
+        System.out.println("B");
+    }
+    public static void main(String[] args) {
+        Test t2 = new Test();
+    }
+}
+
+输出：
+    A
+    B
+    A
+```
 
 
 
