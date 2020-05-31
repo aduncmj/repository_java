@@ -1354,6 +1354,12 @@ public class ChangeArgs {
 
 
 
+## 序列化和反序列化
+
+[序列化/反序列化，我忍你很久了，淦！](https://mp.weixin.qq.com/s/0EfIUB9E-0Oh_Clwuxswuw)
+
+
+
 ## 理解ORM和数据持久化
 
 [理解ORM和数据持久化](<https://blog.csdn.net/u012585964/article/details/52412520>)
