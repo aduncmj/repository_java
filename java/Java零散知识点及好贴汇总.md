@@ -765,7 +765,7 @@ String str3 = new String(bytes);
 `public char charAt (int index) `：返回指定索引处的 char值。
 `public int indexOf (String str)` ：返回指定子字符串第一次出现在该字符串内的索引。
 `public String substring (int beginIndex) `：返回一个子字符串，从beginIndex开始截取字符串到字符串结尾。
-`public String substring (int beginIndex, int endIndex) `：返回一个子字符串，从beginIndex到endIndex截取字符串。含beginIndex，不含endIndex。
+`public String substring (int beginIndex, int endIndex) `：返回一个子字符串，从beginIndex到endIndex截取字符串。**含beginIndex，不含endIndex。**
 
 **转换功能的方法**
 
