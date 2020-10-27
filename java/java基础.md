@@ -1538,7 +1538,16 @@ LinkedList是List的子类，List中的方法LinkedList都是可以使用，这�
 
 ![摘自java核心技术](images/2020-10-20_202945.png)
 
+#### stack栈
+
+Java堆栈Stack类已经过时，Java官方推荐使用Deque替代Stack使用。Deque堆栈操作方法：push()、pop()、peek()。
+
+如需使用栈，如下：
+`Deque deque = new LinkedList()`
+
 #### 双端队列
+
+Deque是一个双端队列**接口**，继承自Queue接口，Deque的实现类是LinkedList、ArrayDeque、LinkedBlockingDeque，**其中LinkedList是最常用的。**LinkedList集合可作为堆栈，队列的结构使用**。
 
 ![摘自java核心技术](images/2020-10-20_203337.png)
 
