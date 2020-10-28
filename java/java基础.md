@@ -1530,7 +1530,7 @@ LinkedList是List的子类，List中的方法LinkedList都是可以使用，这�
 
 
 
-### Queue队列
+### 队列&&栈
 
 ![摘自java核心技术](images/2020-10-20_203156.png)
 
@@ -1538,12 +1538,23 @@ LinkedList是List的子类，List中的方法LinkedList都是可以使用，这�
 
 ![摘自java核心技术](images/2020-10-20_202945.png)
 
+可按如下方式使用队列：
+
+`LinkedList<Integer> queue = new LinkedList<>()` 
+
+或
+`Queue<Integer> queue = new LinkedList<>()`
+
 #### stack栈
 
 Java堆栈Stack类已经过时，Java官方推荐使用Deque替代Stack使用。Deque堆栈操作方法：push()、pop()、peek()。
 
 如需使用栈，如下：
-`Deque deque = new LinkedList()`
+
+`LinkedList<Integer> stack = new LinkedList<>()` 
+
+或
+`Deque<Integer> stack = new LinkedList<Integer>()`
 
 #### 双端队列
 
