@@ -616,11 +616,11 @@ class  TemplateDemo
        在运行时调用任意一个对象的方法；
        生成动态代理。
 
-![](images/1.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/哈希流程图.png)
 
 **Java代码在计算机中经历的三个阶段**
 
-![](images/Java代码的三个阶段.bmp)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-10-20_202352.png)
 
 
 
@@ -1055,13 +1055,13 @@ JAVASE提供了满足各种需求的API，在使用这些API前，先了解其�
 
 从上面的描述可以看出JDK中提供了丰富的集合类库，为了便于初学者进行系统地学习，接下来通过一张图来描述整个集合类的继承体系。
 
-![](images/01_集合框架介绍.bmp)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-10-20_202945.png)
 
 
 
 集合本身是一个工具，它存放在java.util包中。在`Collection`接口定义着单列集合框架中最最共性的内容。
 
-![](images/2020-10-20_202352.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/流程图.png)
 
 
 
@@ -1498,13 +1498,13 @@ LinkedList是List的子类，List中的方法LinkedList都是可以使用，这�
 
 在**JDK1.8**之前，哈希表底层采用数组+链表实现，即使用链表处理冲突，同一hash值的链表都存储在一个链表里。但是当位于一个桶中的元素较多，即hash值相等的元素较多时，通过key值依次查找的效率较低。而JDK1.8中，哈希表存储采用数组+链表+红黑树实现，当链表长度超过阈值（8）时，将链表转换为红黑树，这样大大减少了查找时间。
 
-简单的来说，哈希表是由数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下图所示。![](images/哈希表.png)
+简单的来说，哈希表是由数组+链表+红黑树（JDK1.8增加了红黑树部分）实现的，如下图所示。![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-10-20_203337.png)
 
 看到这张图就有人要问了，这个是怎么存储的呢？
 
 为了方便大家的理解我们结合一个存储流程图来说明一下：
 
-![](images/哈希流程图.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/线程概念.png)
 
 总而言之，**JDK1.8**引入红黑树大程度优化了HashMap的性能，那么对于我们来讲保证HashSet集合元素的唯一，其实就是根据对象的hashCode和equals方法来决定的。如果我们往集合中存放自定义的对象，那么保证其唯一，就必须复写hashCode和equals方法建立属于当前对象的比较方式。
 
@@ -1532,11 +1532,11 @@ LinkedList是List的子类，List中的方法LinkedList都是可以使用，这�
 
 ### 队列&&栈
 
-![摘自java核心技术](images/2020-10-20_203156.png)
+![摘自java核心技术](https://gitee.com/aduncmj/PictureBed/raw/master/images/进程概念.png)
 
 #### 队列
 
-![摘自java核心技术](images/2020-10-20_202945.png)
+![摘自java核心技术](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-10-20_203156.png)
 
 可按如下方式使用队列：
 
@@ -1560,7 +1560,7 @@ Java堆栈Stack类已经过时，Java官方推荐使用Deque替代Stack使用。
 
 Deque是一个双端队列**接口**，继承自Queue接口，Deque的实现类是LinkedList、ArrayDeque、LinkedBlockingDeque，**其中LinkedList是最常用的。**LinkedList集合可作为堆栈，队列的结构使用**。
 
-![摘自java核心技术](images/2020-10-20_203337.png)
+![摘自java核心技术](https://gitee.com/aduncmj/PictureBed/raw/master/images/线程内存.png)
 
 #### 优先级队列
 
@@ -1931,11 +1931,11 @@ public class LinkedHashMapDemo {
 
 **进程**
 
-![](images/进程概念.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/waiting.png)
 
 **线程**
 
-![](images/线程概念.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/哈希表.png)
 
 **线程调度:**
 
@@ -1949,7 +1949,7 @@ public class LinkedHashMapDemo {
 
   - 设置线程的优先级
 
-  ![设置线程优先级](images/设置线程优先级.bmp)
+  ![设置线程优先级](https://gitee.com/aduncmj/PictureBed/raw/master/images/状态转移.png)
 
 ### 创建线程类方式一
 
@@ -1965,7 +1965,7 @@ Java使用`java.lang.Thread`类代表**线程**，所有的线程对象都必须
 
 流程图：
 
-![](images/%E6%B5%81%E7%A8%8B%E5%9B%BE.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-02-16_111547.png)
 
 程序启动运行main时候，java虚拟机启动一个进程，主线程main在main()调用时候被创建。随着调用mt的对象的start方法，另外一个新的线程也启动了，这样，整个应用就在多线程下运行。
 
@@ -1974,7 +1974,7 @@ Java使用`java.lang.Thread`类代表**线程**，所有的线程对象都必须
 
 多线程执行时，在栈内存中，其实**每一个执行线程都有一片自己所属的栈内存空间**。进行方法的压栈和弹栈。
 
-![](images/%E7%BA%BF%E7%A8%8B%E5%86%85%E5%AD%98.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/02-Lambda.png)
 
 当执行线程的任务结束了，线程自动在栈内存中释放了。但是当所有的执行线程都结束了，那么进程就结束了。
 
@@ -2343,7 +2343,7 @@ Waiting状态也会在某种情况下进入阻塞状态，而这部分内容作�
 
 Blocked 线程状态图
 
-![](images/2020-02-16_111547.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-02-16_111734.png)
 
 #### Waiting（无限等待）
 
@@ -2413,7 +2413,7 @@ public class WaitingTest {
 
 **Waiting 线程状态图**
 
-![](images/waiting.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-02-16_111904.png)
 
 
 
@@ -2421,7 +2421,7 @@ public class WaitingTest {
 
 到此为止我们已经对线程状态有了基本的认识，想要有更多的了解，详情可以见下图：
 
-![](images/%E7%8A%B6%E6%80%81%E8%BD%AC%E7%A7%BB.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/01-交通方式.png)
 
 > 一条有意思的tips:
 >
@@ -2437,7 +2437,7 @@ public class WaitingTest {
 
 比如：线程A用来生成包子的，线程B用来吃包子的，包子可以理解为同一资源，线程A与线程B处理的动作，一个是生产，一个是消费，那么线程A与线程B之间就存在线程通信问题。
 
-![](images/2020-02-16_111734.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/1.png)
 
 **为什么要处理线程间通信：**
 
@@ -2637,7 +2637,7 @@ public class Demo {
 
 由于线程池中有很多操作都是与优化资源相关的，我们在这里就不多赘述。我们通过一张图来了解线程池的工作原理：
 
-![](images/2020-02-16_111904.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/03-Overview.png)
 
 合理利用线程池能够带来三个好处：
 
@@ -2719,7 +2719,7 @@ public class ThreadPoolDemo {
 
 ### 函数式编程思想概述
 
-![](images/03-Overview.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/设置线程优先级.bmp)
 
 在数学中，**函数**就是有输入量、输出量的一套计算方案，也就是“拿什么东西做什么事情”。相对而言，面向对象过分强调“必须通过对象的形式来做事情”，而函数式思想则尽量忽略面向对象的复杂语法——**强调做什么，而不是以什么形式做**。
 
@@ -2774,11 +2774,11 @@ public class Demo01Runnable {
 
 **生活举例**
 
-![](images/01-交通方式.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/Java代码的三个阶段.bmp)
 
 当我们需要从北京到上海时，可以选择高铁、汽车、骑行或是徒步。我们的真正目的是到达上海，而如何才能到达上海的形式并不重要，所以我们一直在探索有没有比高铁更好的方式——搭乘飞机。
 
-![](images/02-Lambda.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/01_集合框架介绍.bmp)
 
 而现在这种飞机（甚至是飞船）已经诞生：2014年3月Oracle所发布的Java 8（JDK 1.8）中，加入了**Lambda表达式**的重量级新特性，为我们打开了新世界的大门。
 

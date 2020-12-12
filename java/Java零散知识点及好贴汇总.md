@@ -149,9 +149,9 @@ getResourceAsStream读取的文件路径只局限与工程的源文件夹中，�
 
 # 动态代理
 
-![](images/QQ%E5%9B%BE%E7%89%8720191020203905.jpg)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-02-13_165539.png)
 
-![](images/QQ%E5%9B%BE%E7%89%8720191020203944.jpg)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-02-13_163054.png)
 
 
 
@@ -345,7 +345,7 @@ public class Test {
 
 ## 类的生命周期
 
-![](images/2020-02-13_163054.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203944.jpg)
 
 
 
@@ -409,7 +409,7 @@ public class ClassLoaderTest {
 
 这几种类加载器的层次关系如下图所示：
 
-![](images/2020-02-13_165539.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203650.jpg)
 
 **注意：这里父类加载器并不是通过继承关系来实现的，而是采用组合实现的。**
 
@@ -429,11 +429,11 @@ public class ClassLoaderTest {
 
 
 
-![](images/QQ图片20191020203650.jpg)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203445.jpg)
 
-![](images/QQ图片20191020203445.jpg)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203905.jpg)
 
-![](images/QQ图片20191020203759.jpg)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203759.jpg)
 
 
 
@@ -451,7 +451,7 @@ public class ClassLoaderTest {
 
 
 
-![Java核心技术+卷1+基础知识+原书第10版](images/FastStoneEditor1.bmp)
+![Java核心技术+卷1+基础知识+原书第10版](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_141049.png)
 
 # 深入理解Java的接口和抽象类
 
@@ -555,7 +555,7 @@ random方法是Math类里的一个方法，通过Math.random()可以获得0.0到
 
 **我们还可以结合造型来获得所需范围的随机整数**。
 
-![](images/2019-10-27_141049.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_202014.png)
 
 ## java.util.Random类
 
@@ -807,7 +807,7 @@ public class StringDemo {
 
 它的内部拥有一个数组用来存放字符串内容，进行字符串拼接时，直接在数组中加入新内容。StringBuilder会自动维护数组的扩容。原理如下图所示：(默认16字符空间，超过自动扩充)
 
-![06-StringBuilder的原理](images/01_StringBuilder的原理.bmp)
+![06-StringBuilder的原理](https://gitee.com/aduncmj/PictureBed/raw/master/images/print.png)
 
 **构造方法**
 
@@ -1376,35 +1376,35 @@ for(int i=scores.length-1;**i>=0&&count<3**;i--)
 
 **构造对象数组**
 
-![](images/2019-10-27_202014.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/foreach.png)
 
 
 
-![](images/foreach.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_201136.png)
 
 
 
-![](images/print.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/sizeof.png)
 
 
 
-![](images/2019-10-27_201431.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_201431.png)
 
 
 
-![](images/2019-10-27_201857.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_201230.png)
 
 
 
-![](images/sizeof.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_201857.png)
 
 
 
-![](images/2019-10-27_201136.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/01_StringBuilder的原理.bmp)
 
 
 
-![](images/2019-10-27_201230.png)
+![](https://gitee.com/aduncmj/PictureBed/raw/master/images/FastStoneEditor1.bmp)
 
 
 
