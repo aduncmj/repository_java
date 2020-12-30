@@ -10,11 +10,13 @@
 
 - **C/S结构** ：全称为Client/Server结构，是指客户端和服务器结构。常见程序有ＱＱ、迅雷等软件。
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2_bs.jpg)
+![image-20201230214038947](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230214039.png)
+
+
 
 - **B/S结构** ：全称为Browser/Server结构，是指浏览器和服务器结构。常见浏览器有谷歌、火狐等。
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/1_cs.jpg)
+![image-20201230214059839](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230214059.png)
 
 两种架构各有优势，但是无论哪种架构，都离不开网络的支持。**网络编程**，就是在一定的协议下，实现两台计算机的通信的程序。
 
@@ -28,7 +30,7 @@
 
 - **TCP/IP协议：** 传输控制协议/因特网互联协议( Transmission Control Protocol/Internet Protocol)，是Internet最基本、最广泛的协议。它定义了计算机如何连入因特网，以及数据如何在它们之间传输的标准。它的内部包含一系列的用于处理数据通信的协议，并采用了4层的分层模型，每一层都呼叫它的下一层所提供的协议来完成自己的需求。
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/4_tcp.jpg)
+![image-20201230214311861](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230214311.png)
 
 上图中，TCP/IP协议中的四层分别是应用层、传输层、网络层和链路层，每层分别负责不同的通信功能。
 链路层：链路层是用于定义物理传输通道，通常是对某些网络连接设备的驱动协议，例如针对光纤、网线提供的驱动。
@@ -48,7 +50,13 @@
 
   但是在使用UDP协议传送数据时，由于UDP的面向无连接性，不能保证数据的完整性，因此在传输重要数据时不建议使用UDP协议。UDP的交换过程如下图所示。
 
-![UDP通信图解](https://gitee.com/aduncmj/PictureBed/raw/master/images/3_tcp_ip.jpg)
+![image-20201230214604313](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230214604.png)
+
+
+
+
+
+
 
 特点:**数据被限制在64kb以内**，超出这个范围就不能发送了。
 
@@ -63,7 +71,9 @@
     - 第二次握手，服务器端向客户端回送一个响应，通知客户端收到了连接请求。
     - 第三次握手，客户端再次向服务器端发送确认信息，确认连接。整个交互过程如下图所示。
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/UDP通信图解.bmp)
+![image-20201230214430252](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230214430.png)
+
+
 
 ​    完成三次握手，连接建立后，客户端和服务器就可以开始进行数据传输了。由于这种面向连接的特性，TCP协议可以保证传输数据的安全，所以应用十分广泛，例如下载文件、浏览网页等。
 

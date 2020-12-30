@@ -149,11 +149,9 @@ getResourceAsStream读取的文件路径只局限与工程的源文件夹中，�
 
 # 动态代理
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-02-13_165539.png)
+![image-20201230211709917](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230211711.png)
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2020-02-13_163054.png)
-
-
+![image-20201230213136157](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230213136.png)
 
 
 
@@ -345,11 +343,17 @@ public class Test {
 
 ## 类的生命周期
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203944.jpg)
+![image-20201230212739052](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230212739.png)
 
 
 
 ## 类加载器
+
+
+
+![image-20201230221833700](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230221833.png)
+
+
 
 请注意，虚拟机只加载程序执行时所需要的类文件。例如，假设程序从MyProgram.class开始运行，下面是虚拟机执行的步骤：
 1）虚拟机有一个用于加载类文件的机制，例如，从磁盘上读取文件或者请求Web上的文件；它使用该机制来加载MyProgram类文件中的内容。
@@ -409,7 +413,7 @@ public class ClassLoaderTest {
 
 这几种类加载器的层次关系如下图所示：
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203650.jpg)
+![image-20201230212939563](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230212939.png)
 
 **注意：这里父类加载器并不是通过继承关系来实现的，而是采用组合实现的。**
 
@@ -431,7 +435,7 @@ public class ClassLoaderTest {
 
 ![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203445.jpg)
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203905.jpg)
+
 
 ![](https://gitee.com/aduncmj/PictureBed/raw/master/images/QQ图片20191020203759.jpg)
 
@@ -450,8 +454,6 @@ public class ClassLoaderTest {
 先阅读：[C语言函数调用三种方式：传值调用，引用调用和传地址调用](<https://blog.csdn.net/xiaosong2008/article/details/25430261>)
 
 
-
-![Java核心技术+卷1+基础知识+原书第10版](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_141049.png)
 
 # 深入理解Java的接口和抽象类
 
@@ -551,11 +553,13 @@ currentTimeMilli()方法返回从1970年1月1日0时0分0秒到现在的一个lo
 
 random方法是Math类里的一个方法，通过Math.random()可以获得0.0到1.0间的double型随机数，但不包括1.0。
 
+![image-20201230213510395](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230213510.png)
+
 尽管random方法产生的随机数范围比较小，但我们可以将产生的随机值乘以一个数，这样我们既可以获得更大范围的随机数。
 
 **我们还可以结合造型来获得所需范围的随机整数**。
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/2019-10-27_202014.png)
+
 
 ## java.util.Random类
 
@@ -807,7 +811,7 @@ public class StringDemo {
 
 它的内部拥有一个数组用来存放字符串内容，进行字符串拼接时，直接在数组中加入新内容。StringBuilder会自动维护数组的扩容。原理如下图所示：(默认16字符空间，超过自动扩充)
 
-![06-StringBuilder的原理](https://gitee.com/aduncmj/PictureBed/raw/master/images/print.png)
+
 
 **构造方法**
 
@@ -1374,7 +1378,19 @@ for(int i=scores.length-1;**i>=0&&count<3**;i--)
 
 一个方法可以访问所属类的所有对象的私有数据。在实现一个类时，由于公有数据非常危险，所以应该将所有的数据域都设置为私有的 。
 
+
+
+![image-20201230213914588](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230213914.png)
+
+
+
 **构造对象数组**
+
+![image-20201230213812439](https://gitee.com/aduncmj/PictureBed/raw/master/images/20201230213812.png)
+
+
+
+
 
 ![](https://gitee.com/aduncmj/PictureBed/raw/master/images/foreach.png)
 
@@ -1400,11 +1416,7 @@ for(int i=scores.length-1;**i>=0&&count<3**;i--)
 
 
 
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/01_StringBuilder的原理.bmp)
 
-
-
-![](https://gitee.com/aduncmj/PictureBed/raw/master/images/FastStoneEditor1.bmp)
 
 
 
