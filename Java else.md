@@ -1291,12 +1291,16 @@ public class ChangeArgs {
 
 ![图片.png](https://upload-images.jianshu.io/upload_images/1732196-4d4aad5ee066428f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 **&（逻辑与）和&&（短路与）的区别:**
-相同点：&与&&两边的算子都为boolean型，且结果也为boolean; 
+相同点：当&与&&两边的算子都为boolean型，且结果也为boolean; 
 不同点：&两边的算子都必须执行；&&若左边为false，则右边短路不予执行，若左边为true,右边还要执行。
 
 **|（逻辑或）和 ||（短路或）的区别：**
-相同点：两边的算子都为boolean型，且结果也为boolean; 
+相同点：当两边的算子都为boolean型，且结果也为boolean; 
 不同点：|两边的算子都必须执行；||若左边为true，则右边短路不予执行，若左边为false,右边还要执行。
+
+**此外，&（|）还可以用作位运算符，当&（|）操作符两边的表达式不是 boolean 类型时， &表示按位与（或）操作。**
+
+
 
 ## 内存堆和栈的区别
 
