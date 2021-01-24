@@ -1302,6 +1302,46 @@ public class ChangeArgs {
 
 
 
+## java移位运算符
+
+**Java中所有`基本数据类型`均使用该数字的`补码`进行表示**，所以在Java中测试5与-5的输出我们能看到这样的结果：
+
+```java
+int i = 5;
+int j = -5;    System.out.println(Integer.toBinaryString(i));
+    //101  之前的29位全0被忽略了  
+System.out.println(Integer.toBinaryString(j));
+    //11111111111111111111111111111011
+```
+
+![image-20210121140659995](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210121140700.png)
+
+参考：https://blog.csdn.net/weixin_43999327/article/details/107868018
+
+**在java语言中，为了保证移动位数的有效性，以使右移位数不超过32位，采用了取余的操作，**
+
+> a >>n 等价于 a >> (n%32)
+
+### 左 移 （<< ）
+
+右边空出的位用0填补，**高位左移溢出则舍弃该高位**(符号位同样丢弃)，相当于乘以2^n。
+
+![image-20210121135921382](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210121135922.png)
+
+![image-20210121135955701](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210121135955.png)
+
+### 右 移 （>> ）
+
+左边空出的位用0或者1填补。正数用0填补，负数用1填补，相当于除以2^n。注：不同的环境填补方式可能不同；低位右移溢出则舍弃该位。
+
+
+
+### 无 符 号 右 移 （>>> ）
+
+无符号右移：正数与右移规则一样，负数的无符号右移，就是相应的补码移位所得，在高位补0即可
+
+
+
 ## 内存堆和栈的区别
 
 [内存堆和栈的区别](https://www.cnblogs.com/lln7777/archive/2012/03/14/2396164.html)
