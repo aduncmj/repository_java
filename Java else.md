@@ -1414,6 +1414,32 @@ System.out.println(Integer.toBinaryString(j));
 
 
 
+## 判断某变量是否属于基本数据类型
+
+```java
+public class Test {
+    public static void main(String[] args){
+        int int_num=0;
+        double double_num=0;
+        System.out.println(judgeType(int_num));
+      System.out.println(judgeType(double_num));
+    }
+    
+    //利用向上转型时基本数据类型会转换为包装类
+    public static boolean judgeType(Object temp){
+        if(temp instanceof Integer)
+            return true;
+        else
+            return false;
+    }
+}
+
+```
+
+
+
+
+
 # 边角细节
 
 for(int i=scores.length-1;**i>=0&&count<3**;i--)
