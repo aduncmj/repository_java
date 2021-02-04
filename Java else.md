@@ -449,9 +449,22 @@ public class ClassLoaderTest {
 
 
 
-# Java方法参数的值调用
+# Java方法参数的值调用(值传递)
 
 先阅读：[C语言函数调用三种方式：传值调用，引用调用和传地址调用](<https://blog.csdn.net/xiaosong2008/article/details/25430261>)
+
+首先，java中方法参数传递方式是按值传递。
+
+- 如果参数是基本类型，传递的是基本类型的字面量值的拷贝。
+- 如果参数是引用类型，传递的是该参量所引用的对象在堆中地址值的拷贝。
+
+
+
+[java中实现swap函数的几种方式](https://blog.csdn.net/u014028392/article/details/78326834)
+
+
+
+
 
 
 
