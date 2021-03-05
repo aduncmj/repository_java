@@ -1873,7 +1873,7 @@ public class LinkedHashMapDemo {
 
   ![设置线程优先级](https://gitee.com/aduncmj/PictureBed/raw/master/images/状态转移.png)
 
-### 创建线程类方式一
+### 创建线程类方式一：Thread类
 
 Java使用`java.lang.Thread`类代表**线程**，所有的线程对象都必须是Thread类或其子类的实例。每个线程的作用是完成一定的任务，实际上就是执行一段程序流即一段顺序执行的代码。Java使用线程执行体来代表这段程序流。Java中通过继承Thread类来**创建**并**启动多线程**的步骤如下：
 
@@ -1881,9 +1881,49 @@ Java使用`java.lang.Thread`类代表**线程**，所有的线程对象都必须
 2. 创建Thread子类的实例，即创建了线程对象
 3. 调用线程对象的start()方法来启动该线程
 
-### 多线程原理
+代码如下：
 
-多线程执行时序图
+测试类：
+
+~~~java
+public class Demo01 {
+	public static void main(String[] args) {
+		//创建自定义线程对象
+		MyThread mt = new MyThread("新的线程！");
+		//开启新线程
+		mt.start();
+		//在主方法中执行for循环
+		for (int i = 0; i < 10; i++) {
+			System.out.println("main线程！"+i);
+		}
+	}
+}
+~~~
+
+自定义线程类：
+
+~~~java
+public class MyThread extends Thread {
+	//定义指定线程名称的构造方法
+	public MyThread(String name) {
+		//调用父类的String参数的构造方法，指定线程的名称
+		super(name);
+	}
+	/**
+	 * 重写run方法，完成该线程执行的逻辑
+	 */
+	@Override
+	public void run() {
+		for (int i = 0; i < 10; i++) {
+			System.out.println(getName()+"：正在执行！"+i);
+		}
+	}
+}
+~~~
+
+#### 多线程原理
+
+上述多线程执行时序图
 
 流程图：
 
@@ -1894,15 +1934,17 @@ Java使用`java.lang.Thread`类代表**线程**，所有的线程对象都必须
 通过这张图我们可以很清晰的看到多线程的执行流程，那么为什么可以完成并发执行呢？我们再来讲一讲原理。
 多线程执行时，到底在内存中是如何运行的呢？以上个程序为例，进行图解说明：
 
-![image-20201230220245116](C:\Users\aduncmj\AppData\Roaming\Typora\typora-user-images\image-20201230220245116.png)
+![image-20201230220245116](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210225113341.png)
+
+![image-20210225113421932](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210225113422.png)
 
 多线程执行时，在栈内存中，其实**每一个执行线程都有一片自己所属的栈内存空间**。进行方法的压栈和弹栈。
 
 当执行线程的任务结束了，线程自动在栈内存中释放了。但是当所有的执行线程都结束了，那么进程就结束了。
 
-Thread类
+#### Thread类常用接口
 
-API中该类中定义了有关线程的一些方法，具体如下：
+Thread类中定义了有关线程的一些方法，具体如下：
 
 **构造方法**：
 
@@ -1929,7 +1971,7 @@ API中该类中定义了有关线程的一些方法，具体如下：
 > 翻阅API后得知创建线程的方式总共有两种，一种是继承Thread类方式，一种是实现Runnable接口方式，方式一我
 > 们已经完成，接下来讲解方式二实现的方式。
 
-### 创建线程方式二
+### 创建线程方式二：runnable接口
 
 采用`java.lang.Runnable`也是非常常见的一种，我们只需要重写run方法即可。
 
@@ -2018,17 +2060,73 @@ public static void main(String[] args) {
 
 ```
 
-
-
 ### 线程安全
 
 #### 线程安全
 
-线程安全问题都是由全局变量及静态变量引起的。若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。
+如果有多个线程在同时运行，而这些线程可能会同时运行这段代码。程序每次运行结果和单线程运行的结果是一样
+的，而且其他的变量的值也和预期的是一样的，就是线程安全的。
+我们通过一个案例，演示线程的安全问题：
+电影院要卖票，我们模拟电影院的卖票过程。假设要播放的电影是 “葫芦娃大战奥特曼”，本次电影的座位共100个
+(本场电影只能卖100张票)。
+我们来模拟电影院的售票窗口，实现多个窗口同时卖 “葫芦娃大战奥特曼”这场电影票(多个窗口一起卖这100张票)
+需要窗口，采用线程对象来模拟；需要票，Runnable接口子类来模拟
+
+```java
+public class Ticket implements Runnable {
+    public static void main(String[] args) {
+        //创建线程任务对象
+        Ticket ticket = new Ticket();
+        //创建三个窗口对象
+        Thread t1 = new Thread(ticket, "窗口1");
+        Thread t2 = new Thread(ticket, "窗口2");
+        Thread t3 = new Thread(ticket, "窗口3");
+
+        //同时卖票
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+
+    private int ticket = 100;
+
+    /*
+     * 执行卖票操作
+     */
+    @Override
+    public void run() {
+        //每个窗口卖票的操作
+        //窗口 永远开启
+        while (true) {
+            if (ticket > 0) {//有票 可以卖
+                //出票操作
+                //使用sleep模拟一下出票时间
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    // TODO Auto‐generated catch block
+                    e.printStackTrace();
+                }
+                //获取当前线程对象的名字
+                String name = Thread.currentThread().getName();
+                System.out.println(name + "正在卖:" + ticket--);
+            }
+        }
+    }
+}
+```
+
+![image-20210228101300562](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210228101302.png)
+
+> 线程安全问题都是由全局变量及静态变量引起的。若每个线程中对全局变量、静态变量只有读操作，而无写操作，一般来说，这个全局变量是线程安全的；若有多个线程同时执行写操作，一般都需要考虑线程同步，否则的话就可能影响线程安全。
 
 #### 线程同步
 
 当我们使用多个线程访问同一资源的时候，且多个线程中对资源有写的操作，就容易出现线程安全问题。要解决上述多线程并发访问一个资源的安全性问题: Java中提供了同步机制(**synchronized**)来解决。
+
+根据案例简述：
+
+> 窗口1线程进入操作的时候，窗口2和窗口3线程只能在外等着，窗口1操作结束，窗口1和窗口2和窗口3才有机会进入代码去执行。也就是说在某个线程修改共享资源的时候，其他线程不能修改该资源，等待修改完毕同步之后，才能去抢夺CPU资源，完成对应的操作，保证了数据的同步性，解决了线程不安全的现象。
 
 
 
@@ -2064,29 +2162,51 @@ synchronized(同步锁){
 ```java
 public class Ticket implements Runnable{ private int ticket = 100;
 
-Object lock = new Object();
-/*
-* 执行卖票操作
-*/ @Override
-public void run() {
-//每个窗口卖票的操作
-//窗口 永远开启
-while(true){
-synchronized (lock) {
-if(ticket>0){//有票 可以卖
-//出票操作
-//使用sleep模拟一下出票时间
-try {
-Thread.sleep(50);
-} catch (InterruptedException e) {
-// TODO Auto‐generated catch block e.printStackTrace();
-}
-//获取当前线程对象的名字
-String name = Thread.currentThread().getName();
-System.out.println(name+"正在卖:"+ticket‐‐);
+public class Ticket implements Runnable {
+    public static void main(String[] args) {
+        //创建线程任务对象
+        Ticket ticket = new Ticket();
+        //创建三个窗口对象
+        Thread t1 = new Thread(ticket, "窗口1");
+        Thread t2 = new Thread(ticket, "窗口2");
+        Thread t3 = new Thread(ticket, "窗口3");
+
+        //同时卖票
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+
+    private int ticket = 100;
+
+    Object lock = new Object();
+
+    /*
+     * 执行卖票操作
+     */
+    @Override
+    public void run() {
+        //每个窗口卖票的操作
+        //窗口 永远开启
+        while (true) {
+            synchronized (lock) {
+                if (ticket > 0) {//有票 可以卖
+                    //出票操作
+                    //使用sleep模拟一下出票时间
+                    try {
+                        Thread.sleep(50);
+                    } catch (InterruptedException e) {
+                        // TODO Auto‐generated catch block e.printStackTrace();
+                    }
+                    //获取当前线程对象的名字
+                    String name = Thread.currentThread().getName();
+                    System.out.println(name + "正在卖:" + ticket--);
+                }
+            }
+        }
+    }
 }
 
-}
 ```
 
 当使用了同步代码块后，上述的线程的安全问题，解决了。
@@ -2115,37 +2235,58 @@ public synchronized void method(){
 
 ```java
 public class Ticket implements Runnable{ private int ticket = 100;
-/*
-* 执行卖票操作
-*/ @Override
-public void run() {
-//每个窗口卖票的操作
-//窗口 永远开启
-while(true){
-sellTicket();
-}
-}
+public class Ticket implements Runnable {
+    public static void main(String[] args) {
+        //创建线程任务对象
+        Ticket ticket = new Ticket();
+        //创建三个窗口对象
+        Thread t1 = new Thread(ticket, "窗口1");
+        Thread t2 = new Thread(ticket, "窗口2");
+        Thread t3 = new Thread(ticket, "窗口3");
 
-/*
-*	锁对象 是 谁调用这个方法 就是谁
-*	隐 含 锁 对 象 就 是 this
-*
-*/
-public synchronized void sellTicket(){
-if(ticket>0){//有票 可以卖
-//出票操作
-//使用sleep模拟一下出票时间
-try {
-Thread.sleep(100);
-} catch (InterruptedException e) {
-// TODO Auto‐generated catch block
-e.printStackTrace();
+        //同时卖票
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+
+    private int ticket = 100;
+
+    Object lock = new Object();
+
+    /*
+     * 执行卖票操作
+     */
+    @Override
+    public void run() {
+        //每个窗口卖票的操作
+        //窗口 永远开启
+        while (true) {
+            sellTicket();
+        }
+    }
+
+    /*
+     *	锁对象 是 谁调用这个方法 就是谁
+     *	隐 含 锁 对 象 就 是 this
+     *
+     */
+    public synchronized void sellTicket() {
+        if (ticket > 0) {//有票 可以卖
+            //出票操作
+            //使用sleep模拟一下出票时间
+            try {
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                // TODO Auto‐generated catch block
+                e.printStackTrace();
+            }
+            //获取当前线程对象的名字
+            String name = Thread.currentThread().getName();
+            System.out.println(name + "正在卖:" + ticket--);
+        }
+    }
 }
-//获取当前线程对象的名字
-String name = Thread.currentThread().getName();
-System.out.println(name+"正在卖:"+ticket‐‐);
-
-
 ```
 
 
@@ -2163,34 +2304,53 @@ Lock锁也称同步锁，加锁与释放锁方法化了，如下：
 使用如下：
 
 ```java
-public class Ticket implements Runnable{ private int ticket = 100;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
-Lock lock = new ReentrantLock();
-/*
-* 执行卖票操作
-*/ @Override
-public void run() {
-//每个窗口卖票的操作
-//窗口 永远开启
-while(true){
-lock.lock();
-if(ticket>0){//有票 可以卖
-//出票操作
-//使用sleep模拟一下出票时间
-try {
-Thread.sleep(50);
-} catch (InterruptedException e) {
-// TODO Auto‐generated catch block e.printStackTrace();
-}
-//获取当前线程对象的名字
-String name = Thread.currentThread().getName();
-System.out.println(name+"正在卖:"+ticket‐‐);
-}
-lock.unlock();
-}
-}
-}
+public class Ticket implements Runnable {
+    public static void main(String[] args) {
+        //创建线程任务对象
+        Ticket ticket = new Ticket();
+        //创建三个窗口对象
+        Thread t1 = new Thread(ticket, "窗口1");
+        Thread t2 = new Thread(ticket, "窗口2");
+        Thread t3 = new Thread(ticket, "窗口3");
 
+        //同时卖票
+        t1.start();
+        t2.start();
+        t3.start();
+    }
+
+    private int ticket = 100;
+
+    Lock lock = new ReentrantLock();
+
+    /*
+     * 执行卖票操作
+     */
+    @Override
+    public void run() {
+        //每个窗口卖票的操作
+        //窗口 永远开启
+        while (true) {
+            lock.lock();
+            if (ticket > 0) {//有票 可以卖
+                //出票操作
+                //使用sleep模拟一下出票时间
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    // TODO Auto‐generated catch block e.printStackTrace();
+                }
+                //获取当前线程对象的名字
+                String name = Thread.currentThread().getName();
+                System.out.println(name + "正在卖:" + ticket--);
+            }
+            lock.unlock();
+        }
+    }
+}
 ```
 
 
@@ -2199,7 +2359,7 @@ lock.unlock();
 
 #### 线程状态概述
 
-当线程被创建并启动以后，它既不是一启动就进入了执行状态，也不是一直处于执行状态。在线程的生命周期中，有几种状态呢？在API中 这个枚举中给出了六种线程状态：
+当线程被创建并启动以后，它既不是一启动就进入了执行状态，也不是一直处于执行状态。在线程的生命周期中，有几种状态呢？在API中 ` java.lang.Thread.State `这个枚举中给出了六种线程状态：
 
 这里先列出各个线程状态发生的条件，下面将会对每种状态进行详细解析
 
@@ -2227,21 +2387,26 @@ Timed Waiting在API中的描述为：一个正在限时等待另一个线程执�
 代码：
 
 ```java
-public class MyThread extends Thread { public void run() {
-for (int i = 0; i < 100; i++) { if ((i) % 10 == 0) {
-System.out.println("‐‐‐‐‐‐‐" + i);
-}
-System.out.print(i); 
-   try {
-Thread.sleep(1000);
-System.out.print("	线程睡眠1秒！\n");
-} catch (InterruptedException e) { e.printStackTrace();
-}
-}
-}
-public static void main(String[] args) { new MyThread().start();
-}
+public class MyThread extends Thread {
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            if ((i) % 10 == 0) {
+                System.out.println("‐‐‐‐‐‐‐" + i);
+            }
+            System.out.print(i);
+            try {
+                Thread.sleep(1000);
+                System.out.print("	线程睡眠1秒！\n");
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public static void main(String[] args) {
+        new MyThread().start();
+    }
+}
 ```
 
 通过案例可以发现，sleep方法的使用还是很简单的。我们需要记住下面几点：
@@ -2252,6 +2417,10 @@ public static void main(String[] args) { new MyThread().start();
 3. sleep与锁无关，线程睡眠到期自动苏醒，并返回到Runnable（可运行）状态。
 
 > 小提示：sleep()中指定的时间是线程不会运行的最短时间。因此，sleep()方法不能保证该线程睡眠到期后就开始立刻执行。
+
+**Timed Waiting 线程状态图：**
+
+![image-20210228103832618](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210228103832.png)
 
 #### BLOCKED（锁阻塞）
 
@@ -2269,66 +2438,58 @@ Blocked 线程状态图
 
 #### Waiting（无限等待）
 
-
-
 Wating状态在API中介绍为：一个正在无限期等待另一个线程执行一个特别的（唤醒）动作的线程处于这一状态。
 
 那么我们之前遇到过这种状态吗？答案是并没有，但并不妨碍我们进行一个简单深入的了解。我们通过一段代码来学习一下：
 
 ```java
 public class WaitingTest {
-	public static Object obj = new Object();
+    public static Object obj = new Object();
 
-	public static void main(String[] args) {
-// 演示waiting
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while (true) {
-					synchronized (obj) {
-						try {
-							System.out.println(
-									Thread.currentThread().getName() + "=== 获取到锁对象，调用wait方法，进入waiting状态，释放锁对象");
-							obj.wait(); // 无限等待
-							// obj.wait(5000); //计时等待, 5秒 时间到，自动醒来
+    public static void main(String[] args) {
+        // 演示waiting
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    synchronized (obj) {
+                        try {
+                            System.out.println(
+                                    Thread.currentThread().getName() + "=== 获取到锁对象，调用wait方法，进入waiting状态，释放锁对象");
+                                obj.wait(); // 无限等待
+                            // obj.wait(5000); //计时等待, 5秒 时间到，自动醒来
 
-						} catch (InterruptedException e) {
-							e.printStackTrace();
-						}
-						System.out.println(Thread.currentThread().getName() + "=== 从waiting状态醒来，获取到锁对象，继续执行了");
-					}
-				}
-			}
-		}, "等待线程").start();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(Thread.currentThread().getName() + "=== 从waiting状态醒来，获取到锁对象，继续执行了");
+                    }
+                }
+            }
+        }, "等待线程").start();
 
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-//			while (true){	//每隔3秒 唤醒一次
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    System.out.println(Thread.currentThread().getName() + "‐‐‐‐‐ 等待3秒钟");
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
 
-				try {
-					System.out.println(Thread.currentThread().getName() + "‐‐‐‐‐ 等待3秒钟");
-					Thread.sleep(3000);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-
-				synchronized (obj) {
-					System.out.println(Thread.currentThread().getName() + "‐‐‐‐‐ 获取到锁对象,调用notify方法，释放锁对象");
-					obj.notify();
-				}
-			}
-//			}
-		}, "唤醒线程").start();
-	}
+                synchronized (obj) {
+                    System.out.println(Thread.currentThread().getName() + "‐‐‐‐‐ 获取到锁对象,调用notify方法，释放锁对象");
+                    obj.notify();
+                }
+            }
+        }, "唤醒线程").start();
+    }
 }
 
 ```
 
-
-
-通过上述案例我们会发现，一个调用了某个对象的 Object.wait
-方法的线程会等待另一个线程调用此对象的Object.notify()方法 或 Object.notifyAll()方法。
+通过上述案例我们会发现，一个调用了某个对象的 Object.wait方法的线程会等待另一个线程调用此对象的Object.notify()方法 或 Object.notifyAll()方法。
 
 其实waiting状态并不是一个线程的操作，它体现的是多个线程间的通信，可以理解为多个线程之间的协作关系，多个线程会争取锁，同时相互之间又存在协作关系。就好比在公司里你和你的同事们，你们可能存在晋升时的竞争，但更多时候你们更多是一起合作以完成某些任务。
 
@@ -2341,11 +2502,11 @@ public class WaitingTest {
 
 
 
-#### 补充知识点
+#### 线程状态转移图
 
 到此为止我们已经对线程状态有了基本的认识，想要有更多的了解，详情可以见下图：
 
-
+![image-20210228104719400](https://gitee.com/aduncmj/PictureBed/raw/master/images/20210228104719.png)
 
 > 一条有意思的tips:
 >
